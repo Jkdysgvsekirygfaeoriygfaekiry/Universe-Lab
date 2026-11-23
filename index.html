@@ -18,6 +18,7 @@
   --bone:#e8eef0; --muted:#8d9ba7; --dim:#5f6d79;
   --verd:#8fe0cc; --verd-ink:#06221b; --brass:#e3b97c; --brass-ink:#2a1c06; --coral:#ef8f80;
   --bk-event:#b9791c; --bk-body:#1c8f7a; --bk-world:#3170c4; --bk-control:#c25b37; --bk-value:#6b57c6; --bk-cond:#5c8a2b; --bk-var:#b24a73;
+  --bk-group:#1f9ec2; --bk-law:#9446ad; --bk-my:#5d6b7f; --bk-data:#958a1e;
   --font:"Avenir Next","Segoe UI Variable Text","Segoe UI","PingFang TC","Hiragino Sans","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
   --tap:44px;
   --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px); --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
@@ -187,6 +188,13 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .varchip b{font-weight:500;color:var(--muted);margin-right:8px}
 .varchip i{font-style:normal;color:var(--brass);margin-left:8px}
 .varchip i.b{color:#f0d3a4}
+.varchip.law{border-color:rgba(148,70,173,.65);background:rgba(36,16,44,.78);max-width:min(78vw,420px);white-space:normal;line-height:1.45}
+.varchip.law span{color:#e2c4ee}
+.engine{display:flex;align-items:center;gap:10px;margin:10px 0 8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(148,70,173,.55);background:rgba(36,16,44,.5)}
+.engine>svg{flex:none;width:20px;height:20px;color:#e2c4ee}
+.engine>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.engine>div b{font-weight:500}
+.engine>div span{color:var(--muted);font-size:12px;line-height:1.4}
 #rail{position:absolute;left:0;right:0;bottom:max(8px,var(--sab));padding:0 max(6px,var(--sar)) 0 max(6px,var(--sal));display:flex;justify-content:center;z-index:30}
 #labLayer>#rail{pointer-events:none}
 body.short #rail{justify-content:flex-start}
@@ -219,13 +227,13 @@ body.short #rateBtn{min-width:62px}
 #banner .txt{min-width:0;line-height:1.3}
 #banner .txt b{display:block;font-weight:500;color:var(--verd)}
 #banner .txt span{color:var(--muted);font-size:12px}
-#toasts{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(max(8px,var(--sab)) + 70px + var(--rest,0px));transition:bottom .18s;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:min(92vw,520px);z-index:40}
+#toasts{position:absolute;left:calc(50% - var(--rest-rx,0px) / 2);transform:translateX(-50%);bottom:calc(max(8px,var(--sab)) + 70px + var(--rest,0px));transition:bottom .18s,left .18s;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:min(92vw,520px,calc(100vw - var(--rest-rx,0px) - 2 * var(--ub-w,0px) - 16px));z-index:40}
 .toast{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:14px;background:rgba(14,22,31,.94);border:1px solid var(--line2);box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:auto;animation:toastIn .2s ease-out;max-width:100%}
 .toast .tag{color:var(--brass);font-weight:600}
 .toast button{color:var(--verd);font-weight:500;white-space:nowrap}
 .toast.out{opacity:0;transition:opacity .3s}
 @keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-#userBtns{position:absolute;right:max(10px,var(--sar));bottom:calc(max(8px,var(--sab)) + 68px + var(--rest-r,0px));transition:bottom .18s;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:8}
+#userBtns{position:absolute;right:calc(max(10px,var(--sar)) + var(--rest-rx,0px));bottom:calc(max(8px,var(--sab)) + 68px + var(--rest-r,0px));transition:bottom .18s,right .18s;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:8}
 #labLayer>#userBtns{pointer-events:none}
 #userBtns>*{pointer-events:auto}
 .ubtn{min-height:42px;padding:0 16px;border-radius:12px;background:var(--bk-event);color:#fff;font-weight:500;box-shadow:0 3px 0 rgba(0,0,0,.35),0 8px 20px rgba(0,0,0,.4)}
@@ -347,6 +355,7 @@ body.rewinding #rail,body.rewinding #userBtns{display:none}
 .bk-script.off{opacity:.4}
 .bk{position:relative;color:#fff;font-size:13.5px;line-height:1.2;touch-action:pan-x pan-y;cursor:grab;--c:var(--bk-body);-webkit-touch-callout:none}
 .bk[data-cat=event]{--c:var(--bk-event)}.bk[data-cat=body]{--c:var(--bk-body)}.bk[data-cat=world]{--c:var(--bk-world)}.bk[data-cat=control]{--c:var(--bk-control)}.bk[data-cat=value]{--c:var(--bk-value)}.bk[data-cat=cond]{--c:var(--bk-cond)}.bk[data-cat=var]{--c:var(--bk-var)}
+.bk[data-cat=group]{--c:var(--bk-group)}.bk[data-cat=law]{--c:var(--bk-law)}.bk[data-cat=my]{--c:var(--bk-my)}.bk[data-cat=data]{--c:var(--bk-data)}
 .bk-row{display:flex;align-items:center;flex-wrap:nowrap;gap:6px;min-height:38px;padding:5px 11px;background:var(--c);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 0 rgba(0,0,0,.22)}
 .bk.stack>.bk-row,.bk.cap>.bk-row{border-radius:7px}
 .bk.stack,.bk.cblock,.bk.cap{margin-top:1px}
@@ -364,6 +373,16 @@ body.rewinding #rail,body.rewinding #userBtns{display:none}
 .bk.num>.bk-row{border-radius:999px;min-height:30px;padding:3px 10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
 .bk.bool>.bk-row{min-height:30px;padding:3px 16px;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,12px 100%,0 50%);box-shadow:none}
 .bk-slot{display:inline-flex;align-items:center;min-height:26px}
+/* a block that picks a body: the corners cut off, the same shape as the hole it fits (a body menu) */
+.bk.bref>.bk-row{min-height:30px;padding:3px 13px;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);box-shadow:none}
+.bk-slot.hot>.bk>.bk-row{box-shadow:inset 0 0 0 3px #fff}
+.bk-slot.body.hot>select.bk-f{box-shadow:0 0 0 3px #fff;background-color:#fff4}
+/* advanced blocks carry a small spark at their top right */
+.bk.adv.stack>.bk-row::after,.bk.adv.cap>.bk-row::after,.bk.adv.hat>.bk-row::after,.bk.adv.cblock>.bk-row:first-child::after{content:"";position:absolute;right:6px;top:6px;width:5px;height:5px;transform:rotate(45deg);background:rgba(255,255,255,.62);border-radius:1px;pointer-events:none}
+.bk.missing>.bk-row{background:repeating-linear-gradient(135deg,var(--c) 0 8px,rgba(0,0,0,.25) 8px 12px);opacity:.8}
+.bk.bk-chip{margin-left:2px;cursor:grab}
+.bk.bk-chip>.bk-row{min-height:26px;padding:2px 10px;font-size:12.5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
+.bk.num.bk-chip>.bk-row{border-radius:999px}
 .bk-slot.bool.empty{width:38px;height:24px;background:rgba(0,0,0,.28);clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,10px 100%,0 50%)}
 .bk-slot.hot>.bk-f,.bk-slot.bool.empty.hot{box-shadow:0 0 0 3px #fff;background:#fff8}
 .bk-f{height:28px;border:0;border-radius:999px;background:#fff;color:#16202b;padding:0 9px;font-size:14px;text-align:center;min-width:38px;max-width:190px}
@@ -393,10 +412,54 @@ select.bk-f option{color:#111;background:#fff}
 .bk-cat{display:flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:999px;color:var(--muted);white-space:nowrap}
 .bk-cat i{width:11px;height:11px;border-radius:50%;background:var(--c)}
 .bk-cat.on{background:rgba(255,255,255,.09);color:var(--bone)}
+.bk-cat:not(.adv)+.bk-cat.adv{margin-left:12px;position:relative}
+.bk-cat:not(.adv)+.bk-cat.adv::before{content:"";position:absolute;left:-8px;top:9px;bottom:9px;width:1px;background:var(--line2)}
+/* the advanced switch stays at the start of the category strip */
+.bk-advsw{position:sticky;left:-8px;z-index:2;flex:none;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 10px;margin:0 6px 0 -8px;border-radius:0 999px 999px 0;background:rgba(11,19,27,.985);color:var(--muted);white-space:nowrap;box-shadow:6px 0 10px rgba(11,19,27,.95)}
+.bk-advsw i{position:relative;width:28px;height:16px;border-radius:999px;background:rgba(255,255,255,.14);transition:background .15s}
+.bk-advsw i::after{content:"";position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--muted);transition:transform .15s,background .15s}
+.bk-advsw.on{color:var(--bone)}
+.bk-advsw.on i{background:rgba(143,224,204,.35)}
+.bk-advsw.on i::after{transform:translateX(12px);background:var(--verd)}
+@media (prefers-reduced-motion:reduce){.bk-advsw i,.bk-advsw i::after{transition:none}}
+.bk-pdiv{flex:none;align-self:stretch;display:flex;align-items:center;padding:0 2px 0 12px;border-left:1px solid var(--line2);color:var(--muted);font-size:11.5px}
+.win.w-lg .bk-pdiv{flex-basis:100%;border-left:0;border-top:1px solid var(--line2);padding:8px 0 0}
+.bk-varbtn.solid{display:inline-flex;align-items:center;gap:6px;border-style:solid;border-color:rgba(149,138,30,.9);background:rgba(149,138,30,.28)}
+.bk-varbtn.solid svg{width:16px;height:16px}
 .bk-varbtn{flex:none;height:34px;padding:0 12px;border-radius:999px;border:1px dashed rgba(255,255,255,.4);color:#fff}
 
 .bk-list{display:flex;flex-direction:column;align-items:flex-start;min-height:8px;min-width:120px}
 .bk-val{color:var(--brass);font-size:13px;white-space:nowrap}
+/* making a block of your own */
+.dlg.pp p{color:var(--muted);font-size:13px;line-height:1.55;margin:4px 0 12px}
+.pp-head{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px}
+.pp-head b{font-weight:500}
+.pp-list{display:flex;flex-direction:column;gap:8px}
+.pp-row{display:flex;align-items:center;gap:8px}
+.pp-row .inp{flex:1;min-width:0}
+.pp-row .seg button{padding:0 10px}
+.pp-prev{margin:16px 0 4px;padding:14px 12px;border-radius:12px;background:rgba(10,17,24,.985);overflow-x:auto}
+.pp-prev .bk{cursor:default}
+.pp-n,.pp-b{display:inline-block;min-width:34px;height:24px;line-height:24px;padding:0 8px;text-align:center;font-size:12.5px}
+.pp-n{border-radius:999px;background:#fff;color:#16202b}
+.pp-b{background:rgba(0,0,0,.26);border-radius:6px}
+/* measurement charts */
+.dv-empty{padding:4px 2px;color:var(--muted);line-height:1.6}
+.dv-empty b{display:block;color:var(--bone);font-weight:500;font-size:15px}
+.dv-empty p{margin:4px 0 12px;max-width:38ch}
+.dv-leg{margin:0 0 10px}
+.legend i.dash{background:repeating-linear-gradient(90deg,var(--verd) 0 4px,transparent 4px 7px)!important}
+.dv-panel{margin-bottom:14px}
+.dv-head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;min-width:0}
+.dv-head b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dv-kind{color:var(--dim);font-size:11.5px;white-space:nowrap}
+.dv-val{margin-left:auto;color:var(--brass);font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dv-chart{height:128px}
+.dv-chart.xy{height:200px}
+.dv-lists h3{font-size:13px;font-weight:500;color:var(--muted);margin:6px 0 8px}
+.dv-list{display:grid;grid-template-columns:auto auto 1fr;gap:10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.dv-len{color:var(--muted);font-size:12px;white-space:nowrap}
+.dv-tail{color:var(--brass);font-size:12px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-variant-numeric:tabular-nums}
 .bk-loose-note{color:var(--muted);font-size:11.5px;margin-top:8px;max-width:30ch;white-space:normal}
 
 /* ---------- parallel ---------- */
@@ -1078,9 +1141,19 @@ function makeBody(spec) {
     debris: !!spec.debris,                           // a fragment thrown off by an impact or pulled off by tides
     ts: isNum(spec.ts) && spec.ts > 0 ? spec.ts : 0, // tidal stress built up inside a Roche limit (0 … ROCHE_STRESS)
     tn: isNum(spec.tn) ? clamp(Math.floor(spec.tn), 0, ROCHE_STRIPS) : 0,      // how many times tides have already pulled pieces off it
+    th: cleanThrust(spec.th),                        // an engine left running by a block: {a: m/s², dir, ref}
   };
   return b;
 }
+// ---- laws a block can change -------------------------------------------------
+// an engine: a steady push of a m/s² along dir, measured against ref (a body id, or the frame of the world when there is none)
+const THRUST_DIRS = ['fwd', 'back', 'to', 'away', 'up', 'down'];
+function cleanThrust(t) {
+  if (!t || typeof t !== 'object' || !isNum(t.a) || THRUST_DIRS.indexOf(t.dir) < 0) return null;
+  const a = clamp(t.a, -1e4, 1e4); if (a === 0) return null;
+  return { a, dir: t.dir, ref: typeof t.ref === 'string' && /^[bc]\d{1,9}$/.test(t.ref) ? t.ref : null };
+}
+const LAW_N_MIN = 0.5, LAW_N_MAX = 5;
 // how tides treat a body: 'fluid' bodies can be pulled apart; the others say why not
 function rocheClass(b) {
   const k = visOf(b).vis;
@@ -1122,7 +1195,14 @@ class Universe {
     this.notes = [];       // what settle() did, for the interface to show; not part of the saved state
     this.handled = null;   // pairs a block script dealt with during this step: {'idA|idB': 1}
     this._dt = 0;
+    // laws the advanced blocks can rewrite: gravity ∝ 1/rⁿ (the same strength as Newton's at lawR0), space expanding
+    // (distances double every expT seconds), a drag on all motion (speeds halve every dragT seconds). 0 = off.
+    this.lawN = 2; this.lawR0 = AU; this.expT = 0; this.dragT = 0;
+    this.lists = {};       // name → [numbers]: lists kept by block scripts
+    this.plots = {};       // name → {k:'t'|'xy', pts:[[x,y]…]}: measurements drawn by block scripts (kept out of rewind snapshots)
   }
+  // true while every law is the real one (the dashed osculating orbit only means something then)
+  isNewtonian() { return this.lawN === 2 && !(this.expT > 0) && !(this.dragT > 0) && !this.bodies.some(b => b.th); }
 
   // ---- structure -----------------------------------------------------------
   dirty() { this._pk = null; this.dtIdeal = 0; this.rev++; }
@@ -1174,7 +1254,10 @@ class Universe {
   _refreshMu() {
     const pk = this._pk, bs = this.bodies; if (!pk) return;
     pk.src.length = 0; pk.non.length = 0; pk.hn.length = 0;
-    const g = this.gravityOn ? G_SI * this.gScale : 0;
+    // a power law other than Newton's keeps its strength at lawR0: a = μ·K / rⁿ with K = lawR0^(n−2), folded into μ
+    const n = this.lawN, K = n === 2 ? 1 : Math.pow(this.lawR0, n - 2);
+    pk.lawP = (n + 1) / 2;      // the distance power in the pair loops is d^(n+1) = (d²)^P
+    const g = this.gravityOn ? G_SI * this.gScale * K : 0;
     for (let i = 0; i < pk.n; i++) {
       const b = bs[i];
       const mu = b.src ? g * b.m * (b.repel ? -1 : 1) : 0;
@@ -1190,6 +1273,11 @@ class Universe {
         pk.crit[i] = pk.mu[i] / (ROCHE_K3 * r3); pk.wdyn[i] = Math.sqrt(0.75 * pk.mu[i] / (Math.PI * r3)); pk.nRoche++;
       } else { pk.crit[i] = 0; pk.wdyn[i] = 0; }
     }
+    // the extra forces: expansion a = H²·r (H = ln2 / doubling time), drag a = −k·v (k = ln2 / half-life), engines
+    pk.H2 = this.expT > 0 ? Math.pow(Math.LN2 / this.expT, 2) : 0;
+    pk.dragK = this.dragT > 0 ? Math.LN2 / this.dragT : 0;
+    pk.thr = [];
+    for (let i = 0; i < pk.n; i++) { const t = bs[i].th; if (t && !bs[i].pin) pk.thr.push({ i, a: t.a, dir: t.dir, ref: t.ref ? this.indexOf(t.ref) : -1 }); }
   }
   _unpack() {
     const pk = this._pk, bs = this.bodies; if (!pk) return;
@@ -1201,6 +1289,11 @@ class Universe {
   }
   // accelerations at current packed positions
   _accel() {
+    const pk = this._pk;
+    if (pk.lawP !== 1.5) this._accelLaw(); else this._accelNewton();
+    if (pk.H2 > 0 || pk.thr.length) this._accelExtra();
+  }
+  _accelNewton() {
     const pk = this._pk, n = pk.n, px = pk.px, py = pk.py, pz = pk.pz, ax = pk.ax, ay = pk.ay, az = pk.az, mu = pk.mu, R = pk.R, aff = pk.aff;
     const src = pk.src, non = pk.non, S = src.length;
     for (let i = 0; i < n; i++) { ax[i] = 0; ay[i] = 0; az[i] = 0; }
@@ -1231,13 +1324,63 @@ class Universe {
       ax[i] = sx; ay[i] = sy; az[i] = sz;
     }
   }
+  // the same pair sums for gravity ∝ 1/rⁿ: (d²)^P with P = (n+1)/2 instead of d³; inside contact the force falls linearly
+  // to zero at the centre (matching the outside value at contact), as Newton's does
+  _accelLaw() {
+    const pk = this._pk, n = pk.n, px = pk.px, py = pk.py, pz = pk.pz, ax = pk.ax, ay = pk.ay, az = pk.az, mu = pk.mu, R = pk.R, aff = pk.aff, P = pk.lawP;
+    const src = pk.src, non = pk.non, S = src.length;
+    for (let i = 0; i < n; i++) { ax[i] = 0; ay[i] = 0; az[i] = 0; }
+    for (let a = 0; a < S; a++) {
+      const i = src[a], xi = px[i], yi = py[i], zi = pz[i], mi = mu[i], Ri = R[i], ai = aff[i];
+      let sx = 0, sy = 0, sz = 0;
+      for (let b = a + 1; b < S; b++) {
+        const j = src[b];
+        const dx = px[j] - xi, dy = py[j] - yi, dz = pz[j] - zi;
+        const d2 = dx * dx + dy * dy + dz * dz, Rc = Ri + R[j];
+        const inv = 1 / Math.pow(d2 >= Rc * Rc ? d2 : Rc * Rc, P);
+        const sj = mu[j] * inv; sx += sj * dx; sy += sj * dy; sz += sj * dz;
+        if (aff[j]) { const si = mi * inv; ax[j] -= si * dx; ay[j] -= si * dy; az[j] -= si * dz; }
+      }
+      if (ai) { ax[i] += sx; ay[i] += sy; az[i] += sz; }
+    }
+    for (let a = 0; a < non.length; a++) {
+      const i = non[a]; if (!aff[i]) continue;
+      const xi = px[i], yi = py[i], zi = pz[i], Ri = R[i];
+      let sx = 0, sy = 0, sz = 0;
+      for (let b = 0; b < S; b++) {
+        const j = src[b];
+        const dx = px[j] - xi, dy = py[j] - yi, dz = pz[j] - zi;
+        const d2 = dx * dx + dy * dy + dz * dz, Rc = Ri + R[j];
+        const s = mu[j] / Math.pow(d2 >= Rc * Rc ? d2 : Rc * Rc, P);
+        sx += s * dx; sy += s * dy; sz += s * dz;
+      }
+      ax[i] = sx; ay[i] = sy; az[i] = sz;
+    }
+  }
+  // forces that are not between pairs: expansion of space, drag, engines (velocities are the ones of the current kick)
+  _accelExtra() {
+    const pk = this._pk, n = pk.n, px = pk.px, py = pk.py, pz = pk.pz, vx = pk.vx, vy = pk.vy, vz = pk.vz, ax = pk.ax, ay = pk.ay, az = pk.az, pin = pk.pin;
+    const H2 = pk.H2;          // (drag is applied exactly in step(), split around the rest)
+    if (H2 > 0) for (let i = 0; i < n; i++) {
+      if (pin[i]) continue;
+      ax[i] += H2 * px[i]; ay[i] += H2 * py[i]; az[i] += H2 * pz[i];
+    }
+    for (const t of pk.thr) {
+      const i = t.i, r = t.ref; let dx = 0, dy = 0, dz = 0;
+      if (t.dir === 'up') dy = 1; else if (t.dir === 'down') dy = -1;
+      else if (t.dir === 'to' || t.dir === 'away') { if (r < 0 || r === i) continue; dx = px[r] - px[i]; dy = py[r] - py[i]; dz = pz[r] - pz[i]; if (t.dir === 'away') { dx = -dx; dy = -dy; dz = -dz; } }
+      else { dx = vx[i] - (r >= 0 ? vx[r] : 0); dy = vy[i] - (r >= 0 ? vy[r] : 0); dz = vz[i] - (r >= 0 ? vz[r] : 0); if (t.dir === 'back') { dx = -dx; dy = -dy; dz = -dz; } }
+      const l = Math.sqrt(dx * dx + dy * dy + dz * dz); if (!(l > 0)) continue;
+      const f = t.a / l; ax[i] += f * dx; ay[i] += f * dy; az[i] += f * dz;
+    }
+  }
   // One pass over interacting pairs at the current positions: finds the shortest dynamical
   // time-scale (for the next step size) and, when sweep is set, detects contacts along the
   // straight segment each pair travelled since the step started.
   _pairPass(sweep) {
     const pk = this._pk, src = pk.src, non = pk.non, S = src.length;
     const px = pk.px, py = pk.py, pz = pk.pz, qx = pk.qx, qy = pk.qy, qz = pk.qz, R = pk.R, mu = pk.mu, disp = pk.disp;
-    const vx = pk.vx, vy = pk.vy, vz = pk.vz;
+    const vx = pk.vx, vy = pk.vy, vz = pk.vz, P = pk.lawP, law = P !== 1.5;
     let minTs2 = Infinity, la = -1, lb = -1;
     if (sweep) for (let i = 0; i < pk.n; i++) { const dx = px[i] - qx[i], dy = py[i] - qy[i], dz = pz[i] - qz[i]; disp[i] = Math.sqrt(dx * dx + dy * dy + dz * dz); }
     const tides = sweep && pk.nRoche > 0, crit = pk.crit, tide = pk.tide, tby = pk.tby;
@@ -1250,7 +1393,7 @@ class Universe {
         const j = src[b];
         const dx = px[j] - xi, dy = py[j] - yi, dz = pz[j] - zi;
         const d2 = dx * dx + dy * dy + dz * dz, Rc = Ri + R[j];
-        const d3 = d2 >= Rc * Rc ? d2 * Math.sqrt(d2) : Rc * Rc * Rc;
+        const d3 = law ? Math.pow(d2 >= Rc * Rc ? d2 : Rc * Rc, P) : d2 >= Rc * Rc ? d2 * Math.sqrt(d2) : Rc * Rc * Rc;      // d^(n+1)
         const ts2 = d3 / (mi + Math.abs(mu[j]));
         if (ts2 < minTs2) { minTs2 = ts2; la = i; lb = j; }
         // A pair closing fast (something thrown at a moon, a fly-by) must not cross its whole separation in a single
@@ -1285,6 +1428,9 @@ class Universe {
         }
       }
     }
+    // expansion and drag have their own time-scales (1/H, 1/k); the step resolves them too
+    if (pk.H2 > 0 && 1 / pk.H2 < minTs2) { minTs2 = 1 / pk.H2; la = lb = -1; }
+    if (pk.dragK > 0 && 1 / (pk.dragK * pk.dragK) < minTs2) { minTs2 = 1 / (pk.dragK * pk.dragK); la = lb = -1; }
     this.limA = la; this.limB = lb;
     if (minTs2 === Infinity) this.dtIdeal = Infinity;
     else { const raw = this.eta * Math.sqrt(minTs2); this.dtIdeal = raw > 0 ? Math.pow(2, Math.floor(Math.log2(raw))) : 1e-6; }
@@ -1353,6 +1499,10 @@ class Universe {
     const n = pk.n, px = pk.px, py = pk.py, pz = pk.pz, vx = pk.vx, vy = pk.vy, vz = pk.vz, ax = pk.ax, ay = pk.ay, az = pk.az, pin = pk.pin;
     if (this.tweens.length) this._applyTweens();
     pk.qx.set(px); pk.qy.set(py); pk.qz.set(pz);
+    // drag (dv/dt = −k·v) is solved exactly, half before and half after the rest of the step: a velocity-dependent force
+    // inside the symplectic kicks would only be first-order accurate
+    const fd = pk.dragK > 0 ? Math.exp(-0.5 * pk.dragK * dt) : 1;
+    if (fd !== 1) for (let i = 0; i < n; i++) if (!pin[i]) { vx[i] *= fd; vy[i] *= fd; vz[i] *= fd; }
     for (let s = 0; s < 4; s++) {
       const c = Y4_C[s] * dt;
       for (let i = 0; i < n; i++) if (!pin[i]) { px[i] += c * vx[i]; py[i] += c * vy[i]; pz[i] += c * vz[i]; }
@@ -1362,6 +1512,7 @@ class Universe {
         for (let i = 0; i < n; i++) if (!pin[i]) { vx[i] += d * ax[i]; vy[i] += d * ay[i]; vz[i] += d * az[i]; }
       }
     }
+    if (fd !== 1) for (let i = 0; i < n; i++) if (!pin[i]) { vx[i] *= fd; vy[i] *= fd; vz[i] *= fd; }
     // compensated time accumulation
     const y = dt - this._tc, tt = this.t + y; this._tc = (tt - this.t) - y; this.t = tt;
     this.steps++;
@@ -1446,7 +1597,8 @@ class Universe {
     const rel = V.sub(p, parent.p), r = V.len(rel);
     const g = this.gravityOn ? G_SI * this.gScale : 0;
     const mu = g * (Math.abs(parent.m) + Math.abs(m || 0));
-    const sp = r > 0 ? Math.sqrt(mu / r) : 0;
+    // a = μK/rⁿ = v²/r  →  v = √(μK / r^(n−1)), which is √(μ/r) for Newton's law
+    const sp = r > 0 ? (this.lawN === 2 ? Math.sqrt(mu / r) : Math.sqrt(mu * Math.pow(this.lawR0, this.lawN - 2) / Math.pow(r, this.lawN - 1))) : 0;
     let nrm = normal || [0, 1, 0];
     let dir = V.cross(nrm, rel);
     if (V.len(dir) < 1e-9 * r) dir = V.cross([1, 0, 0], rel);
@@ -1463,10 +1615,18 @@ class Universe {
       for (let j = i + 1; j < bs.length; j++) {
         const b = bs[j]; if (!b.src) continue;
         const d = V.dist(a.p, b.p), Rc = a.r + b.r, s = (a.repel ? -1 : 1) * (b.repel ? -1 : 1);
-        U += -s * g * a.m * b.m * (d >= Rc ? 1 / d : (3 * Rc * Rc - d * d) / (2 * Rc * Rc * Rc));
+        U += -s * g * a.m * b.m * this._potShape(d, Rc);
       }
     }
     return { K, U, E: K + U };
+  }
+  // −U / (G m₁m₂) for a pair at distance d (contact distance Rc) under the current law; inside contact the force is linear
+  _potShape(d, Rc) {
+    const n = this.lawN;
+    if (n === 2) return d >= Rc ? 1 / d : (3 * Rc * Rc - d * d) / (2 * Rc * Rc * Rc);
+    const K = Math.pow(this.lawR0, n - 2), x = Math.max(d, Rc);
+    const out = n === 1 ? -K * Math.log(x) : K / ((n - 1) * Math.pow(x, n - 1));
+    return d >= Rc ? out : out + K * (Rc * Rc - d * d) / (2 * Math.pow(Rc, n + 1));
   }
   barycenter() {
     let M = 0, c = [0, 0, 0], v = [0, 0, 0];
@@ -1481,17 +1641,19 @@ class Universe {
   }
 
   // ---- serialisation -------------------------------------------------------
-  serialize() {
+  // opts.plots: true = keep the measurements, 'save' = keep them thinned for a file; left out of rewind snapshots
+  serialize(opts) {
     this.flush();
     return {
       t: this.t, gScale: this.gScale, gravityOn: this.gravityOn, eta: this.eta, seed: this.seed >>> 0, nextId: this.nextId, idp: this.idp,
-      collide: this.collide, roche: this.roche,
+      collide: this.collide, roche: this.roche, lawN: this.lawN, lawR0: this.lawR0, expT: this.expT, dragT: this.dragT,
       bodies: this.bodies.map(b => ({
         id: b.id, key: b.key, name: b.name, m: b.m, r: b.r, p: [b.p[0], b.p[1], b.p[2]], v: [b.v[0], b.v[1], b.v[2]],
         spinH: b.spinH, tilt: b.tilt, axisLon: b.axisLon, spin0: b.spin0, src: b.src, aff: b.aff, pin: b.pin, repel: b.repel,
-        vo: b.vo ? deepClone(b.vo) : null, born: b.born, origin: b.origin, debris: b.debris, ts: b.ts, tn: b.tn,
+        vo: b.vo ? deepClone(b.vo) : null, born: b.born, origin: b.origin, debris: b.debris, ts: b.ts, tn: b.tn, th: b.th ? Object.assign({}, b.th) : null,
       })),
-      tweens: deepClone(this.tweens), vars: deepClone(this.vars), rt: deepClone(this.rt),
+      tweens: deepClone(this.tweens), vars: deepClone(this.vars), rt: deepClone(this.rt), lists: deepClone(this.lists),
+      plots: opts && opts.plots ? plotsCopy(this.plots, opts.plots === 'save' ? 600 : 0) : undefined,
       touch: Object.assign({}, this.touch), track: deepClone(this.track), log: this.log.slice(-120).map(e => Object.assign({}, e)),
     };
   }
@@ -1504,6 +1666,8 @@ class Universe {
     u.seed = (o.seed >>> 0) || newSeed();
     u.collide = COLLIDE_MODES.indexOf(o.collide) >= 0 ? o.collide : 'real';
     u.roche = o.roche !== false;
+    u.lawN = isNum(o.lawN) ? clamp(o.lawN, LAW_N_MIN, LAW_N_MAX) : 2; u.lawR0 = isNum(o.lawR0) && o.lawR0 > 0 ? clamp(o.lawR0, 1, 1e18) : AU;
+    u.expT = isNum(o.expT) && o.expT > 0 ? Math.max(o.expT, 60) : 0; u.dragT = isNum(o.dragT) && o.dragT > 0 ? Math.max(o.dragT, 60) : 0;
     for (const s of (o.bodies || [])) { const b = makeBody(s); b.id = String(s.id); b.born = isNum(s.born) ? s.born : 0; u.bodies.push(b); }
     u.nextId = isNum(o.nextId) ? o.nextId : 1; u.idp = o.idp === 'c' ? 'c' : 'b';
     for (const b of u.bodies) { const n = parseInt(b.id.slice(1), 10); if (isNum(n) && n >= u.nextId) u.nextId = n + 1; }
@@ -1513,9 +1677,26 @@ class Universe {
     u.touch = o.touch && typeof o.touch === 'object' ? Object.assign({}, o.touch) : {}; u.nTouch = Object.keys(u.touch).length;
     u.track = o.track && typeof o.track === 'object' ? deepClone(o.track) : {};
     u.log = Array.isArray(o.log) ? o.log.slice(-300) : [];
+    u.lists = o.lists && typeof o.lists === 'object' ? deepClone(o.lists) : {};
+    u.plots = o.plots && typeof o.plots === 'object' ? plotsCopy(o.plots, 0) : {};
     return u;
   }
-  clone() { return Universe.deserialize(this.serialize()); }
+  clone() { return Universe.deserialize(this.serialize({ plots: true })); }
+}
+
+// measurements drawn by scripts: a deep copy, optionally thinned to at most max points per curve
+const PLOT_MAX_SERIES = 12, PLOT_MAX_POINTS = 2000, LIST_MAX = 1000;
+function plotsCopy(pl, max) {
+  const out = {}; let n = 0;
+  for (const k in pl) {
+    const s = pl[k]; if (!s || !Array.isArray(s.pts) || ++n > PLOT_MAX_SERIES) continue;
+    const xy = s.k === 'xy';       // an x–y curve also keeps when each point was taken, so going back in time can trim it
+    let pts = s.pts.filter(p => Array.isArray(p) && isNum(p[0]) && isNum(p[1]) && (!xy || isNum(p[2]))).map(p => xy ? [p[0], p[1], p[2]] : [p[0], p[1]]);
+    if (pts.length > PLOT_MAX_POINTS) pts = pts.slice(-PLOT_MAX_POINTS);
+    if (max > 0 && pts.length > max) { const st = pts.length / max, th = []; for (let i = 0; i < max; i++) th.push(pts[Math.floor(i * st)]); th[max - 1] = pts[pts.length - 1]; pts = th; }
+    out[String(k).slice(0, 32)] = { k: s.k === 'xy' ? 'xy' : 't', pts };
+  }
+  return out;
 }
 
 // ---- body construction helpers ---------------------------------------------
@@ -1928,9 +2109,12 @@ addStrings({
 // ============================================================================
 // Blocks — the "laws of your universe" language: definitions + interpreter.
 //
-// program = { scripts:[ {id, tag:'AB'|'A'|'B', off, hat:block|null, body:[block], expr:block|null} ], vars:[name] }
+// program = { scripts:[ {id, tag:'AB'|'A'|'B', off, hat:block|null, body:[block], expr:block|null} ], vars:[name],
+//             procs:[ {id, name, params:[{t:'num'|'body', n}]} ], lists:[name] }
 // block   = { id, op, a:{arg: literal | block}, sub:[block], sub2:[block] }
 // Scripts run in simulation time. Each universe keeps its own runtime (u.rt).
+// Two layers share this one language: the basic blocks, and the advanced ones (26_blocks_adv.js, `adv: true`) that open
+// up the same slots — a body slot also takes a block that picks a body, a script can call your own blocks, and so on.
 // ============================================================================
 const BLOCKS = {};
 const BLOCK_CATS = [
@@ -1956,10 +2140,33 @@ const aUnit = (q, d, rel) => ({ t: 'unit', q, d, rel: !!rel });
 const aEnum = (opts) => ({ t: 'enum', opts, d: opts[0][0] });
 
 // ---- helpers used by block implementations ---------------------------------
+// a body argument → an id (or '@it'/'@other'/'@any' left as they are): a literal id, a block that picks a body, the body
+// a for-each loop is at ('@each'), or a body handed to your own block ('@b0'…'@b2')
+function bkRef(cx, ref) {
+  if (ref && typeof ref === 'object') { const d = BLOCKS[ref.op]; let r = null; try { r = d && d.ev ? d.ev(cx, ref.a, ref) : null; } catch (e) { r = null; } return typeof r === 'string' ? r : null; }
+  if (ref === '@each') return bkEach(cx);
+  if (ref === '@b0' || ref === '@b1' || ref === '@b2') { const e = bkEnv(cx), v = e ? e.v[+ref[2]] : null; return typeof v === 'string' ? v : null; }
+  return ref;
+}
 function bkBody(cx, ref) {
+  ref = bkRef(cx, ref);
   if (ref === '@it') return cx.th && cx.th.it ? cx.u.byId(cx.th.it) : null;
   if (ref === '@other') return cx.th && cx.th.other ? cx.u.byId(cx.th.other) : null;
-  return ref ? cx.u.byId(ref) : null;
+  return ref && ref[0] !== '@' ? cx.u.byId(ref) : null;
+}
+// the body the innermost for-each is at: a condition being counted (cx.each) or a loop on the script's stack —
+// but not across the edge of one of your own blocks (inside it, only its own loops count)
+function bkEach(cx) {
+  if (cx.each && cx.each.length) return cx.each[cx.each.length - 1];
+  const st = cx.th && cx.th.st; if (!st) return null;
+  for (let i = st.length - 1; i >= 0; i--) { const f = st[i]; if (f.each) return f.each[f.k] || null; if (f.env) return null; }
+  return null;
+}
+// the arguments of the custom block the script is running inside
+function bkEnv(cx) {
+  const st = cx.th && cx.th.st; if (!st) return null;
+  for (let i = st.length - 1; i >= 0; i--) if (st[i].env) return st[i].env;
+  return null;
 }
 function bkNum(cx, v) {
   if (v && typeof v === 'object') { const d = BLOCKS[v.op]; const x = d && d.ev ? d.ev(cx, v.a, v) : 0; return isNum(x) ? x : 0; }
@@ -2215,7 +2422,8 @@ function newBlock(op, overrides) {
     else if (ar.t === 'bool') b.a[k] = null;
     else if (ar.t === 'text') b.a[k] = pickLang(ar.d);
     else if (ar.t === 'body') b.a[k] = null;
-    else if (ar.t === 'var') b.a[k] = null;
+    else if (ar.t === 'var' || ar.t === 'list' || ar.t === 'proc') b.a[k] = null;
+    else if (ar.t === 'idx') b.a[k] = 0;
     else b.a[k] = ar.d;
   }
   if (d.shape === 'c' || d.shape === 'c2') b.sub = [];
@@ -2224,7 +2432,9 @@ function newBlock(op, overrides) {
   return b;
 }
 function newScript(hat, body, tag) { return { id: uid('s'), tag: tag || 'AB', off: false, hat: hat || null, body: body || [], expr: null }; }
-function newProgram() { return { scripts: [], vars: [] }; }
+function newProgram() { return { scripts: [], vars: [], procs: [], lists: [] }; }
+function procOf(prog, id) { const l = prog.procs || []; for (const p of l) if (p.id === id) return p; return null; }
+function procDef(prog, id) { for (const s of prog.scripts) if (s.hat && s.hat.op === 'p_def' && s.hat.a.proc === id) return s; return null; }
 // visit every block (including nested reporters); fn(block, parentArray|null)
 function walkBlocks(prog, fn) {
   const visit = (b, arr) => {
@@ -2252,7 +2462,10 @@ function cloneBlockTree(b) {          // deep copy with fresh ids
 }
 function serializeProgram(prog) {
   const strip = (b) => { const c = { id: b.id, op: b.op, a: {} }; for (const k in b.a) { const v = b.a[k]; c.a[k] = v && typeof v === 'object' ? strip(v) : v; } if (b.sub) c.sub = b.sub.map(strip); if (b.sub2) c.sub2 = b.sub2.map(strip); return c; };
-  return { scripts: prog.scripts.map(s => ({ id: s.id, tag: s.tag, off: !!s.off, hat: s.hat ? strip(s.hat) : null, body: s.body.map(strip), expr: s.expr ? strip(s.expr) : null })), vars: prog.vars.slice() };
+  return {
+    scripts: prog.scripts.map(s => ({ id: s.id, tag: s.tag, off: !!s.off, hat: s.hat ? strip(s.hat) : null, body: s.body.map(strip), expr: s.expr ? strip(s.expr) : null })), vars: prog.vars.slice(),
+    procs: (prog.procs || []).map(p => ({ id: p.id, name: p.name, params: p.params.map(q => ({ t: q.t, n: q.n })) })), lists: (prog.lists || []).slice(),
+  };
 }
 // strict validation of untrusted program data (imported saves). Returns a clean program or throws.
 function validateProgram(raw) {
@@ -2275,8 +2488,10 @@ function validateProgram(raw) {
       if (ar.t === 'num') c.a[k] = v && typeof v === 'object' ? vblock(v, depth + 1, ['num']) : (isNum(+v) ? +v : ar.d);
       else if (ar.t === 'bool') c.a[k] = v && typeof v === 'object' ? vblock(v, depth + 1, ['bool']) : null;
       else if (ar.t === 'text') c.a[k] = str(v, 120);
-      else if (ar.t === 'body') c.a[k] = v == null ? null : str(v, 24);
-      else if (ar.t === 'var') c.a[k] = v == null ? null : str(v, 24);
+      else if (ar.t === 'body') c.a[k] = v && typeof v === 'object' ? vblock(v, depth + 1, ['bref']) : v == null ? null : str(v, 24);
+      else if (ar.t === 'var' || ar.t === 'list') c.a[k] = v == null ? null : str(v, 24);
+      else if (ar.t === 'proc') c.a[k] = v == null ? null : str(v, 40);
+      else if (ar.t === 'idx') c.a[k] = clamp(Math.floor(+v) || 0, 0, 2);
       else if (ar.t === 'unit') c.a[k] = unitsFor(ar).indexOf(v) >= 0 ? v : ar.d;
       else if (ar.t === 'enum') c.a[k] = ar.opts.some(o => o[0] === v) ? v : ar.d;
       else if (ar.t === 'kind') c.a[k] = CATALOG[v] ? v : ar.d;
@@ -2291,10 +2506,23 @@ function validateProgram(raw) {
     sc.id = keepId(s.id, 's'); sc.off = !!s.off;
     if (s.hat) sc.hat = vblock(s.hat, 0, ['hat']);
     sc.body = (Array.isArray(s.body) ? s.body : []).map(x => vblock(x, 0, ['stack', 'c', 'c2', 'cap']));
-    if (s.expr && !sc.hat && !sc.body.length) sc.expr = vblock(s.expr, 0, ['num', 'bool']);
+    if (s.expr && !sc.hat && !sc.body.length) sc.expr = vblock(s.expr, 0, ['num', 'bool', 'bref']);
     if (sc.hat || sc.body.length || sc.expr) out.scripts.push(sc);
   }
   out.vars = (Array.isArray(raw.vars) ? raw.vars : []).slice(0, 40).map(v => str(v, 24)).filter(Boolean);
+  out.lists = (Array.isArray(raw.lists) ? raw.lists : []).slice(0, 20).map(v => str(v, 24)).filter((v, i, a) => v && a.indexOf(v) === i);
+  for (const p of (Array.isArray(raw.procs) ? raw.procs : []).slice(0, 40)) {
+    if (!p || typeof p !== 'object' || typeof p.id !== 'string' || !/^[a-z][a-z0-9]{2,30}$/.test(p.id) || out.procs.some(q => q.id === p.id)) continue;
+    const params = (Array.isArray(p.params) ? p.params : []).slice(0, 3).map(q => ({ t: q && q.t === 'body' ? 'body' : 'num', n: str(q && q.n, 16) || '?' }));
+    out.procs.push({ id: p.id, name: str(p.name, 30) || '?', params });
+  }
+  // one definition per custom block; a second one, or one of a block that is not declared, loses its hat
+  const defined = {};
+  for (const sc of out.scripts) if (sc.hat && sc.hat.op === 'p_def') {
+    const id = sc.hat.a.proc;
+    if (!out.procs.some(q => q.id === id) || defined[id]) { sc.hat = null; if (!sc.body.length) sc.dead = true; } else defined[id] = 1;
+  }
+  out.scripts = out.scripts.filter(sc => !sc.dead);
   return out;
 }
 
@@ -2344,20 +2572,21 @@ const Interp = {
           case 'ev_time': { const T = this.hatSeconds(cx, hat); if (t0 < T && T <= t1) this.spawn(u, s); break; }
           case 'ev_every': { const P = this.hatSeconds(cx, hat); if (P > 0 && Math.floor(t1 / P + 1e-12) > Math.floor(t0 / P + 1e-12)) this.spawn(u, s); break; }
           case 'ev_dist': {
-            const j = u.indexOf(hat.a.b); if (j < 0) break;
+            const j = u.indexOf(bkRef(cx, hat.a.b)); if (j < 0) break;
             const thr = this.hatSeconds(cx, hat); if (!(thr > 0)) break;
             const test = (i) => {
               if (i === j || i < 0) return;
               const sg = u.segment(i, j); if (!sg) return;
               if (hat.a.cmp === 'lt' ? (sg.d0 >= thr && sg.dmin < thr) : (sg.d0 <= thr && sg.d1 > thr)) this.spawn(u, s, u.bodies[i].id, u.bodies[j].id);
             };
-            if (hat.a.a === '@any') for (let i = 0; i < u.bodies.length; i++) test(i); else test(u.indexOf(hat.a.a));
+            const A = bkRef(cx, hat.a.a);
+            if (A === '@any') for (let i = 0; i < u.bodies.length; i++) test(i); else test(u.indexOf(A));
             break;
           }
           case 'ev_touch': {
+            const A = bkRef(cx, hat.a.a), B = bkRef(cx, hat.a.b);
             for (const e of events) {
               if (e.type !== 'contact') continue;
-              const A = hat.a.a, B = hat.a.b;
               const m = (x, id) => x === '@any' || x === id;
               if (m(A, e.a) && m(B, e.b) && !(A === '@any' && B !== '@any' && e.a === B)) this.spawn(u, s, e.a, e.b);
               else if (m(A, e.b) && m(B, e.a)) this.spawn(u, s, e.b, e.a);
@@ -2366,7 +2595,7 @@ const Interp = {
           }
           case 'ev_cond': { const v = bkBool(cx, hat.a.c); if (v && !hs.prev) this.spawn(u, s); hs.prev = v; break; }
           case 'ev_orbit': {
-            const a = u.byId(hat.a.a), b = u.byId(hat.a.b); if (!a || !b || a === b) { hs.acc = 0; hs.l = null; break; }
+            const a = bkBody(cx, hat.a.a), b = bkBody(cx, hat.a.b); if (!a || !b || a === b) { hs.acc = 0; hs.l = null; break; }
             const d = V.norm(V.sub(a.p, b.p));
             if (hs.l) { hs.acc = (hs.acc || 0) + Math.acos(clamp(V.dot(d, hs.l), -1, 1)); if (hs.acc >= TAU) { hs.acc -= TAU; this.spawn(u, s, a.id, b.id); } }
             hs.l = d; break;
@@ -2390,22 +2619,38 @@ const Interp = {
     for (const s of prog.scripts) if (s.hat && s.hat.op === 'ev_button' && this.tagOk(s, tag) && String(s.hat.a.s) === label) this.spawn(u, s);
     this.runThreads(u, prog, tag, fx);
   },
+  // a message sent by a script: every "when I receive" with that text starts (in the same instant), handed the body if one came along
+  broadcast(cx, msg, it) {
+    const m = String(msg == null ? '' : msg);
+    for (const s of cx.prog.scripts) if (s.hat && s.hat.op === 'ev_recv' && this.tagOk(s, cx.tag) && String(s.hat.a.s) === m) this.spawn(cx.u, s, it || null, null);
+  },
   frameArray(ix, th, fr) {
+    if (fr.sid) { const s = ix.scripts.get(fr.sid); return s ? s.body : null; }          // inside one of your own blocks
     if (fr.o == null) { const s = ix.scripts.get(th.sid); return s ? s.body : null; }
     const b = ix.blocks.get(fr.o); return b ? b[fr.s] : null;
   },
   runThreads(u, prog, tag, fx) {
     const rt = this.rt(u), ix = progIndex(prog);
-    const list = rt.threads.slice();
-    for (const th of list) {
+    // the live list: a message sent by one script starts the receivers, and they run in this same pass
+    for (let q = 0; q < rt.threads.length; q++) {
+      const th = rt.threads[q];
+      if (!th.st.length) continue;
       if (th.wake != null) { if (u.t < th.wake - 1e-9 * Math.max(1, Math.abs(th.wake))) continue; th.wake = null; }
+      if (th.y != null) { if (th.y === u.steps) continue; th.y = null; }        // a loop gave way: it goes on after the next step
       const cx = { u, prog, tag, th, fx };
       let guard = 0;
       while (th.st.length) {
-        if (++guard > 4000) break;
+        if (++guard > 10000) break;
         const fr = th.st[th.st.length - 1], arr = this.frameArray(ix, th, fr);
-        if (!arr) { th.st.length = 0; break; }
-        if (fr.i >= arr.length) { if (fr.rep > 0) { fr.rep--; fr.i = 0; continue; } th.st.pop(); continue; }
+        if (!arr) { if (fr.sid) { th.st.pop(); continue; } th.st.length = 0; break; }
+        if (fr.i >= arr.length) {
+          if (fr.rep > 0) { fr.rep--; fr.i = 0; continue; }
+          if (fr.each) { let k = fr.k + 1; while (k < fr.each.length && !u.byId(fr.each[k])) k++; if (k < fr.each.length) { fr.k = k; fr.i = 0; continue; } }
+          // forever / repeat-until: once round, then give way until the next step (time has to pass for anything to change)
+          if (fr.lp === 'f') { fr.i = 0; th.y = u.steps; break; }
+          if (fr.lp === 'u') { const ob = ix.blocks.get(fr.o); if (ob && !bkBool(cx, ob.a.c)) { fr.i = 0; th.y = u.steps; break; } }
+          th.st.pop(); continue;
+        }
         const blk = arr[fr.i], d = BLOCKS[blk.op];
         if (!d) { fr.i++; continue; }
         if (d.ctl === 'wait') { const sec = bkNum(cx, blk.a.n) * UNIT_FACTOR[blk.a.u]; fr.i++; if (sec > 0) { th.wake = u.t + sec; break; } }
@@ -2414,6 +2659,7 @@ const Interp = {
         else if (d.ctl === 'repeat') { fr.i++; const n = Math.floor(clamp(bkNum(cx, blk.a.n), 0, 10000)); if (n >= 1) th.st.push({ o: blk.id, s: 'sub', i: 0, rep: n - 1 }); }
         else if (d.ctl === 'stop') { th.st.length = 0; }
         else if (d.ctl === 'once') { const hs = rt.hat[th.sid] || (rt.hat[th.sid] = {}); if (hs.once) th.st.length = 0; else { hs.once = 1; fr.i++; } }
+        else if (d.step) { let r; try { r = d.step(cx, blk, fr, rt); } catch (err) { fr.i++; u.logEvent({ type: 'error', text: String(err && err.message || err).slice(0, 80) }); } if (r === 'wait') break; }   // advanced control: moves fr.i itself
         else { try { d.run(cx, blk.a, blk); } catch (err) { u.logEvent({ type: 'error', text: String(err && err.message || err).slice(0, 80) }); } fr.i++; }
       }
     }
@@ -2425,6 +2671,386 @@ const Interp = {
     for (const s of prog.scripts) if (s.hat && s.hat.op === 'ev_button' && this.tagOk(s, tag)) { const l = String(s.hat.a.s || ''); if (l && out.indexOf(l) < 0) out.push(l); }
     return out;
   },
+};
+
+// ---- 26_blocks_adv.js ----
+// ============================================================================
+// Advanced blocks — the second layer of the same language. They are shown when the
+// editor's "advanced" switch is on, but they are ordinary blocks: they snap into the
+// basic ones and the basic ones snap into them, and a program that uses them keeps
+// running (and showing them) with the switch off.
+//   • more numbers: functions, powers, constants, any property of a body, vectors, orbits
+//   • bodies as blocks: "the nearest star", "for each planet", counts and totals
+//   • laws of physics: gravity ∝ 1/rⁿ, expanding space, drag, engines
+//   • your own blocks (with numbers and bodies handed in) and messages between scripts
+//   • measuring: lists and live curves (drawn in the data window, 67_dataview.js)
+// ============================================================================
+BLOCK_CATS.push(
+  ['group', ['天體群', 'Groups', '天体の集まり'], true],
+  ['law', ['物理定律', 'Laws', '物理法則'], true],
+  ['my', ['我的積木', 'My blocks', 'マイブロック'], true],
+  ['data', ['量測', 'Measure', '計測'], true],
+);
+function defAdv(op, cat, shape, label, args, impl) { defBlock(op, cat, shape, label, args, Object.assign({ adv: true }, impl || {})); }
+const A_BODY_REF = { t: 'body' };
+
+// ---- kinds of bodies and their properties ------------------------------------------------
+const BODY_KINDS = [
+  ['all', ['天體', 'bodies', '天体']], ['star', ['恆星', 'stars', '恒星']], ['planet', ['行星', 'planets', '惑星']], ['moon', ['衛星', 'moons', '衛星']],
+  ['small', ['小天體', 'small bodies', '小天体']], ['compact', ['黑洞與中子星', 'black holes and neutron stars', 'ブラックホールと中性子星']],
+  ['probe', ['探測器', 'probes', '探査機']], ['debris', ['碎片', 'fragments', '破片']],
+];
+function kindOfBody(b) {
+  const g = bodyGroup(b);
+  if (g === 'debris') return 'debris';
+  if (g === 'bh' || g === 'ns' || g === 'wh' || g === 'exotic') return 'compact';
+  if (g === 'probe') return 'probe';
+  if (g === 'moon') return 'moon';
+  if (g === 'dwarf' || g === 'small') return 'small';
+  if (g === 'star' || visOf(b).vis === 'star') return 'star';
+  return 'planet';        // planets, exoplanets and the custom rocky, icy and gas bodies
+}
+// "all bodies" leaves the fragments of impacts out, as the body menus do; they have a kind of their own
+function bodyIs(b, f) { return f === 'all' ? !b.debris : kindOfBody(b) === f; }
+function bodiesOf(u, f) { return u.bodies.filter(b => bodyIs(b, f)); }
+const BODY_PROPS = [
+  ['m', ['質量（地球=1）', 'mass (Earth = 1)', '質量（地球=1）']], ['ms', ['質量（太陽=1）', 'mass (Sun = 1)', '質量（太陽=1）']],
+  ['r', ['半徑（km）', 'radius (km)', '半径（km）']], ['sp', ['速度（km/s）', 'speed (km/s)', '速さ（km/s）']],
+  ['d', ['離母天體的距離（au）', 'distance from its primary (au)', '主星からの距離（au）']], ['temp', ['溫度（K）', 'temperature (K)', '温度（K）']],
+  ['lum', ['亮度（太陽=1）', 'luminosity (Sun = 1)', '光度（太陽=1）']], ['spin', ['自轉週期（小時）', 'rotation period (hours)', '自転周期（時間）']],
+  ['tilt', ['自轉軸傾角（度）', 'axial tilt (°)', '自転軸の傾き（度）']], ['age', ['年齡（年）', 'age (years)', '年齢（年）']],
+  ['dens', ['平均密度（g/cm³）', 'mean density (g/cm³)', '平均密度（g/cm³）']], ['g', ['表面重力（m/s²）', 'surface gravity (m/s²)', '表面重力（m/s²）']],
+  ['esc', ['逃逸速度（km/s）', 'escape speed (km/s)', '脱出速度（km/s）']],
+];
+// a star's temperature is its own; anything else gets the temperature sunlight would give a dark ball at its distance
+// (equilibrium temperature: 278.6 K × (L / d²)^¼ with L in suns and d in au, summed over every star)
+function bodyTemp(u, b) {
+  const v = visOf(b);
+  if (v.vis === 'star' || v.vis === 'ns') return isNum(v.temp) ? v.temp : 5800;
+  if (v.vis === 'bh' || v.vis === 'wh') return 0;
+  let f = 0;
+  for (const o of u.bodies) { const w = visOf(o); if (o === b || w.vis !== 'star') continue; const d = V.dist(o.p, b.p) / AU; if (d > 0) f += (isNum(w.lum) ? w.lum : 1) / (d * d); }
+  return f > 0 ? 278.6 * Math.pow(f, 0.25) : 3;      // with no star at all, the cosmic background
+}
+function bodyProp(u, b, p) {
+  if (!b) return 0;
+  const m = Math.abs(b.m), G = G_SI * u.gScale;
+  switch (p) {
+    case 'm': return b.m / M_EARTH;
+    case 'ms': return b.m / M_SUN;
+    case 'r': return b.r / 1000;
+    case 'sp': { const par = u.parentOf(b), pv = par ? (par.pin ? [0, 0, 0] : par.v) : [0, 0, 0]; return V.len(V.sub(b.pin ? [0, 0, 0] : b.v, pv)) / 1000; }
+    case 'd': { const par = u.parentOf(b); return par ? V.dist(b.p, par.p) / AU : 0; }
+    case 'temp': return bodyTemp(u, b);
+    case 'lum': { const v = visOf(b); return v.vis === 'star' ? (isNum(v.lum) ? v.lum : 1) : 0; }
+    case 'spin': return b.spinH;
+    case 'tilt': return b.tilt;
+    case 'age': return (u.t - (b.born || 0)) / YEAR;
+    case 'dens': return b.r > 0 ? m / (4 / 3 * Math.PI * b.r * b.r * b.r) / 1000 : 0;
+    case 'g': return b.r > 0 ? G * m / (b.r * b.r) : 0;
+    case 'esc': return b.r > 0 ? Math.sqrt(2 * Math.abs(G) * m / b.r) / 1000 : 0;
+  }
+  return 0;
+}
+const SET_PROPS = [
+  ['temp', ['溫度（K，恆星）', 'temperature (K, stars)', '温度（K、恒星）']], ['lum', ['亮度（太陽=1，恆星）', 'luminosity (Sun = 1, stars)', '光度（太陽=1、恒星）']],
+  ['spin', ['自轉週期（小時）', 'rotation period (hours)', '自転周期（時間）']], ['tilt', ['自轉軸傾角（度）', 'axial tilt (°)', '自転軸の傾き（度）']],
+  ['dens', ['平均密度（g/cm³，質量不變）', 'mean density (g/cm³, same mass)', '平均密度（g/cm³、質量はそのまま）']],
+];
+
+// ---- values ----------------------------------------------------------------------------------
+const FN_OPS = [
+  ['sqrt', ['√', '√', '√']], ['abs', ['絕對值', 'abs', '絶対値']], ['round', ['四捨五入', 'round', '四捨五入']], ['floor', ['無條件捨去', 'floor', '切り捨て']],
+  ['ceil', ['無條件進位', 'ceiling', '切り上げ']], ['sin', ['sin', 'sin', 'sin']], ['cos', ['cos', 'cos', 'cos']], ['tan', ['tan', 'tan', 'tan']],
+  ['asin', ['asin', 'asin', 'asin']], ['acos', ['acos', 'acos', 'acos']], ['atan', ['atan', 'atan', 'atan']], ['ln', ['ln', 'ln', 'ln']],
+  ['log', ['log₁₀', 'log₁₀', 'log₁₀']], ['exp', ['eˣ', 'eˣ', 'eˣ']], ['p10', ['10ˣ', '10ˣ', '10ˣ']], ['neg', ['負號', 'negate', '符号反転']],
+];
+function applyFn(f, x) {        // angles in degrees, as everywhere else in the game
+  switch (f) {
+    case 'sqrt': return x >= 0 ? Math.sqrt(x) : 0; case 'abs': return Math.abs(x); case 'round': return Math.round(x);
+    case 'floor': return Math.floor(x); case 'ceil': return Math.ceil(x); case 'sin': return Math.sin(x * DEG); case 'cos': return Math.cos(x * DEG);
+    case 'tan': return Math.tan(x * DEG); case 'asin': return Math.asin(clamp(x, -1, 1)) / DEG; case 'acos': return Math.acos(clamp(x, -1, 1)) / DEG;
+    case 'atan': return Math.atan(x) / DEG; case 'ln': return x > 0 ? Math.log(x) : 0; case 'log': return x > 0 ? Math.log10(x) : 0;
+    case 'exp': return Math.exp(Math.min(x, 700)); case 'p10': return Math.pow(10, Math.min(x, 300)); case 'neg': return -x;
+  }
+  return 0;
+}
+const fin = (x) => isNum(x) ? x : 0;
+defAdv('v_fn', 'value', 'num', ['%f ( %x )', '%f ( %x )', '%f ( %x )'], { f: aEnum(FN_OPS), x: aNum(2) }, { ev(cx, a) { return fin(applyFn(a.f, bkNum(cx, a.x))); } });
+defAdv('v_pow', 'value', 'num', ['%x 的 %y 次方', '%x to the power %y', '%x の %y 乗'], { x: aNum(2), y: aNum(3) }, { ev(cx, a) { return fin(Math.pow(bkNum(cx, a.x), bkNum(cx, a.y))); } });
+defAdv('v_mod', 'value', 'num', ['%x 除以 %y 的餘數', 'remainder of %x ÷ %y', '%x ÷ %y の余り'], { x: aNum(7), y: aNum(3) }, {
+  ev(cx, a) { const x = bkNum(cx, a.x), y = bkNum(cx, a.y); return y !== 0 ? fin(((x % y) + y) % y) : 0; } });
+defAdv('v_minmax', 'value', 'num', ['%x 和 %y 中較%mm的', 'the %mm of %x and %y', '%x と %y の%mm方'],
+  { x: aNum(1), y: aNum(2), mm: aEnum([['max', ['大', 'larger', '大きい']], ['min', ['小', 'smaller', '小さい']]]) }, {
+  ev(cx, a) { const x = bkNum(cx, a.x), y = bkNum(cx, a.y); return a.mm === 'min' ? Math.min(x, y) : Math.max(x, y); } });
+const CONSTS = [
+  ['pi', ['π', 'π', 'π'], Math.PI], ['e', ['e', 'e', 'e'], Math.E], ['c', ['光速（km/s）', 'speed of light (km/s)', '光速（km/s）'], 299792.458],
+  ['G', ['重力常數 G', 'gravitational constant G', '重力定数 G'], G_SI], ['au', ['1 au（km）', '1 au (km)', '1 au（km）'], AU / 1000],
+  ['yr', ['1 年（天）', '1 year (days)', '1 年（日）'], YEAR / DAY], ['msun', ['太陽質量（地球=1）', 'Sun\'s mass (Earth = 1)', '太陽質量（地球=1）'], M_SUN / M_EARTH],
+];
+defAdv('v_const', 'value', 'num', ['%k', '%k', '%k'], { k: aEnum(CONSTS.map(c => [c[0], c[1]])) }, { ev(cx, a) { const c = CONSTS.find(x => x[0] === a.k); return c ? c[2] : 0; } });
+defAdv('v_prop', 'value', 'num', ['%a 的%p', '%p of %a', '%a の%p'], { a: A_BODY, p: aEnum(BODY_PROPS) }, { ev(cx, a) { return fin(bodyProp(cx.u, bkBody(cx, a.a), a.p)); } });
+const AXES = [['x', ['x', 'x', 'x']], ['y', ['北（y）', 'north (y)', '北（y）']], ['z', ['z', 'z', 'z']]];
+defAdv('v_comp', 'value', 'num', ['%a 相對 %b 的%q %ax', '%q %ax of %a relative to %b', '%b から見た %a の%q %ax'],
+  { a: A_BODY, b: A_BODY, q: aEnum([['p', ['位置（au）', 'position (au)', '位置（au）']], ['v', ['速度（km/s）', 'velocity (km/s)', '速度（km/s）']]]), ax: aEnum(AXES) }, {
+  ev(cx, a) {
+    const x = bkBody(cx, a.a), y = bkBody(cx, a.b); if (!x || !y) return 0;
+    const k = a.ax === 'x' ? 0 : a.ax === 'y' ? 1 : 2;
+    if (a.q === 'v') return ((x.pin ? 0 : x.v[k]) - (y.pin ? 0 : y.v[k])) / 1000;
+    return (x.p[k] - y.p[k]) / AU;
+  } });
+const ORB_ELS = [
+  ['a', ['半長軸（au）', 'semi-major axis (au)', '軌道長半径（au）']], ['T', ['週期（天）', 'period (days)', '周期（日）']],
+  ['rp', ['近點距離（au）', 'closest distance (au)', '近点距離（au）']], ['ra', ['遠點距離（au）', 'farthest distance (au)', '遠点距離（au）']],
+  ['i', ['軌道傾角（度）', 'inclination (°)', '軌道傾斜角（度）']],
+];
+defAdv('v_orbel', 'value', 'num', ['%a 繞 %b 的%el', '%el of %a around %b', '%a の %b まわりの%el'], { a: A_BODY, b: A_BODY, el: aEnum(ORB_ELS) }, {
+  ev(cx, a) {
+    const x = bkBody(cx, a.a), y = bkBody(cx, a.b); if (!x || !y || x === y) return 0;
+    const el = cx.u.orbitOf(x, y); if (!el) return 0;
+    // an orbit that does not close has no period or far point: 0 says so
+    if (a.el === 'a') return el.bound ? el.a / AU : 0;
+    if (a.el === 'T') return el.bound && isFinite(el.period) ? el.period / DAY : 0;
+    if (a.el === 'rp') return fin(el.rp / AU);
+    if (a.el === 'ra') return el.bound && isFinite(el.ra) ? el.ra / AU : 0;
+    return fin(el.inc / DEG);
+  } });
+defAdv('q_cmp2', 'cond', 'bool', ['%x %op %y', '%x %op %y', '%x %op %y'], { x: aNum(1), op: aEnum([['le', ['≤', '≤', '≤']], ['ge', ['≥', '≥', '≥']], ['ne', ['≠', '≠', '≠']]]), y: aNum(1) }, {
+  ev(cx, a) { const x = bkNum(cx, a.x), y = bkNum(cx, a.y); return a.op === 'le' ? x <= y : a.op === 'ge' ? x >= y : Math.abs(x - y) > 1e-9 * Math.max(1, Math.abs(x), Math.abs(y)); } });
+defAdv('w_msgv', 'world', 'stack', ['顯示訊息 %s %n', 'show message %s %n', 'メッセージ %s %n を表示'], { s: { t: 'text', d: ['距離 =', 'Distance =', '距離 ='] }, n: aNum(0) }, {
+  run(cx, a) { const s = (String(a.s == null ? '' : a.s) + ' ' + sig(bkNum(cx, a.n), 5)).trim().slice(0, 140); cx.fx.push({ type: 'msg', text: s, tag: cx.tag }); bkLog(cx, { type: 'msg', text: s }); } });
+
+// ---- bodies: precise moves and properties ---------------------------------------------------------
+// a push split along the orbit: forward (along the motion), out (away from the body it is measured against, in the plane
+// of the orbit) and normal (along the orbit's axis) — the three directions a spacecraft burns in
+defAdv('b_burn', 'body', 'stack', ['推 %b 一下（相對 %c）：前進 %f、向外 %o、法向 %n km/s', 'push %b (relative to %c): forward %f, out %o, normal %n km/s', '%b を押す（%c 基準）：前 %f、外 %o、法線 %n km/s'],
+  { b: A_BODY, c: A_BODY, f: aNum(1), o: aNum(0), n: aNum(0) }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b), c = bkBody(cx, a.c); if (!b || !c || b === c || b.pin) return;
+    const r = V.sub(b.p, c.p), v = V.sub(b.v, c.pin ? [0, 0, 0] : c.v);
+    if (!(V.len(v) > 0) || !(V.len(r) > 0)) return;
+    const t = V.norm(v); let nrm = V.cross(r, v); nrm = V.len(nrm) > 0 ? V.norm(nrm) : V.perp(t);
+    const out = V.cross(t, nrm);
+    const dv = V.add(V.add(V.mul(t, bkNum(cx, a.f) * 1000), V.mul(out, bkNum(cx, a.o) * 1000)), V.mul(nrm, bkNum(cx, a.n) * 1000));
+    if (!V.finite(dv)) return;
+    b.v = V.add(b.v, dv); cx.u.dirty(); bkLog(cx, { type: 'push', id: b.id, dv: V.len(dv) });
+  } });
+defAdv('b_setpos', 'body', 'stack', ['把 %b 移到 %c 的 x %x、北 %y、z %z au 處', 'move %b to x %x, north %y, z %z au from %c', '%b を %c から x %x、北 %y、z %z au の所へ'],
+  { b: A_BODY, c: A_BODY, x: aNum(1), y: aNum(0), z: aNum(0) }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b), c = bkBody(cx, a.c); if (!b || !c || b === c) return;
+    const p = V.add(c.p, V.mul([bkNum(cx, a.x), bkNum(cx, a.y), bkNum(cx, a.z)], AU)); if (!V.finite(p)) return;
+    b.p = p; cx.u.dirty(); bkLog(cx, { type: 'move', id: b.id });
+  } });
+defAdv('b_setvel', 'body', 'stack', ['把 %b 相對 %c 的速度設為 x %x、北 %y、z %z km/s', 'set the velocity of %b relative to %c to x %x, north %y, z %z km/s', '%c に対する %b の速度を x %x、北 %y、z %z km/s にする'],
+  { b: A_BODY, c: A_BODY, x: aNum(0), y: aNum(0), z: aNum(30) }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b), c = bkBody(cx, a.c); if (!b || !c || b === c || b.pin) return;
+    const v = V.add(c.pin ? [0, 0, 0] : c.v, V.mul([bkNum(cx, a.x), bkNum(cx, a.y), bkNum(cx, a.z)], 1000)); if (!V.finite(v)) return;
+    b.v = v; cx.u.dirty(); bkLog(cx, { type: 'set', id: b.id, prop: 'v', from: 0, to: V.len(v) });
+  } });
+defAdv('b_setprop', 'body', 'stack', ['把 %b 的%p設為 %n', 'set %p of %b to %n', '%b の%pを %n にする'], { b: A_BODY, p: aEnum(SET_PROPS), n: aNum(6000) }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b); if (!b) return;
+    const n = bkNum(cx, a.n), v = visOf(b), star = v.vis === 'star';
+    let from = bodyProp(cx.u, b, a.p);
+    if (a.p === 'temp') { if (!star || !(n > 0)) return; b.vo = Object.assign({}, b.vo, { temp: clamp(n, 1000, 60000) }); }
+    else if (a.p === 'lum') { if (!star || !(n >= 0)) return; b.vo = Object.assign({}, b.vo, { lum: clamp(n, 1e-7, 1e9) }); }
+    else if (a.p === 'spin') { if (!(Math.abs(n) >= 0.01)) return; b.spinH = clamp(n, -1e7, 1e7); }
+    else if (a.p === 'tilt') b.tilt = clamp(n, -180, 180);
+    else if (a.p === 'dens') { if (!(n > 0) || v.vis === 'bh' || v.vis === 'wh') return; b.r = clamp(Math.cbrt(3 * Math.abs(b.m) / (4 * Math.PI * n * 1000)), 1, 1e13); }
+    cx.u.dirty(); bkLog(cx, { type: 'set', id: b.id, prop: a.p, from, to: n });
+  } });
+defAdv('b_rename', 'body', 'stack', ['把 %b 改名為 %s', 'rename %b to %s', '%b の名前を %s にする'], { b: A_BODY, s: { t: 'text', d: ['新世界', 'New World', '新世界'] } }, {
+  run(cx, a) { const b = bkBody(cx, a.b), s = String(a.s == null ? '' : a.s).trim().slice(0, 48); if (!b || !s) return; b.name = s; cx.u.rev++; } });
+// a copy on the other side of the same orbit: mirrored through the body it goes around, position and velocity alike
+defAdv('b_clone', 'body', 'stack', ['複製 %b，放到它軌道的另一側', 'copy %b to the far side of its orbit', '%b を複製して軌道の反対側に置く'], { b: A_BODY }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b); if (!b) return;
+    const u = cx.u, par = u.parentOf(b);
+    let p, v;
+    if (par) { const pv = par.pin ? [0, 0, 0] : par.v; p = V.sub(V.mul(par.p, 2), b.p); v = V.sub(V.mul(pv, 2), b.v); }
+    else { p = V.add(b.p, [b.r * 6, 0, 0]); v = V.copy(b.v); }
+    const nb = u.addBody({ key: b.key, name: bodyName(b) + ' ʹ', m: b.m, r: b.r, p, v, spinH: b.spinH, tilt: b.tilt, axisLon: b.axisLon, src: b.src, aff: b.aff, repel: b.repel, vo: b.vo, pin: b.pin, origin: 'block' });
+    if (!nb) return;
+    if (cx.th) cx.th.made = nb.id;
+    bkLog(cx, { type: 'add', id: nb.id, name: bodyName(nb) });
+  } });
+
+// ---- control --------------------------------------------------------------------------------------
+defAdv('c_forever', 'control', 'c', ['一直重複', 'forever', 'ずっと'], {}, {
+  step(cx, blk, fr) { fr.i++; cx.th.st.push({ o: blk.id, s: 'sub', i: 0, rep: 0, lp: 'f' }); } });
+defAdv('c_until', 'control', 'c', ['重複直到 %c', 'repeat until %c', '%c まで繰り返す'], { c: { t: 'bool' } }, {
+  step(cx, blk, fr) { fr.i++; if (!bkBool(cx, blk.a.c)) cx.th.st.push({ o: blk.id, s: 'sub', i: 0, rep: 0, lp: 'u' }); } });
+defAdv('c_stopall', 'control', 'cap', ['停止所有積木', 'stop all scripts', 'すべてのスクリプトを止める'], {}, {
+  step(cx, blk, fr, rt) { for (const t of rt.threads) t.st.length = 0; } });
+
+// ---- groups: bodies as blocks, for each ------------------------------------------------------------
+const A_KIND = aEnum(BODY_KINDS);
+defAdv('g_each', 'group', 'c', ['對每一個%f做', 'for every one of the %f', '%f それぞれについて'], { f: A_KIND }, {
+  step(cx, blk, fr) {
+    fr.i++;
+    const ids = bodiesOf(cx.u, blk.a.f).map(b => b.id);
+    if (ids.length) cx.th.st.push({ o: blk.id, s: 'sub', i: 0, rep: 0, each: ids, k: 0 });
+  } });
+const pickBy = (list, key, hi) => { let best = null, bv = 0; for (const b of list) { const v = key(b); if (!isNum(v)) continue; if (best === null || (hi ? v > bv : v < bv)) { best = b; bv = v; } } return best; };
+defAdv('r_pick', 'group', 'bref', ['%f裡%p最%hl的', 'the one of the %f with the %hl %p', '%f の中で%pが最も%hlもの'],
+  { f: A_KIND, p: aEnum(BODY_PROPS), hl: aEnum([['hi', ['大', 'highest', '大きい']], ['lo', ['小', 'lowest', '小さい']]]) }, {
+  ev(cx, a) { const b = pickBy(bodiesOf(cx.u, a.f), (x) => bodyProp(cx.u, x, a.p), a.hl !== 'lo'); return b ? b.id : null; } });
+defAdv('r_near', 'group', 'bref', ['離 %a %nf的%f', 'the one of the %f %nf %a', '%a に%nf%f'],
+  { a: A_BODY, nf: aEnum([['near', ['最近', 'nearest to', 'いちばん近い']], ['far', ['最遠', 'farthest from', 'いちばん遠い']]]), f: A_KIND }, {
+  ev(cx, a) { const o = bkBody(cx, a.a); if (!o) return null; const b = pickBy(bodiesOf(cx.u, a.f).filter(x => x !== o), (x) => V.dist(x.p, o.p), a.nf === 'far'); return b ? b.id : null; } });
+defAdv('r_parent', 'group', 'bref', ['%a 繞著的天體', 'what %a goes around', '%a が回っている天体'], { a: A_BODY }, {
+  ev(cx, a) { const b = bkBody(cx, a.a), p = b ? cx.u.parentOf(b) : null; return p ? p.id : null; } });
+defAdv('r_rand', 'group', 'bref', ['隨機一個%f', 'a random one of the %f', 'ランダムな%f'], { f: A_KIND }, {
+  ev(cx, a) { const l = bodiesOf(cx.u, a.f); return l.length ? l[Math.min(l.length - 1, Math.floor(cx.u.rand() * l.length))].id : null; } });
+defAdv('r_made', 'group', 'bref', ['剛加入的天體', 'the body just added', '今加えた天体'], {}, {
+  ev(cx) { return cx.th && cx.th.made && cx.u.byId(cx.th.made) ? cx.th.made : null; } });
+defAdv('r_named', 'group', 'bref', ['叫做 %s 的天體', 'the body called %s', '%s という名前の天体'], { s: { t: 'text', d: ['地球', 'Earth', '地球'] } }, {
+  ev(cx, a) { const n = String(a.s == null ? '' : a.s).trim(); if (!n) return null; const b = cx.u.bodies.find(x => bodyName(x) === n); return b ? b.id : null; } });
+defAdv('g_count', 'group', 'num', ['%f的數量', 'number of %f', '%f の数'], { f: A_KIND }, { ev(cx, a) { return bodiesOf(cx.u, a.f).length; } });
+// conditions and totals over a group look at each body in turn: inside them, "this one" is the body being looked at
+function withEach(cx, id, fn) { const st = cx.each || (cx.each = []); st.push(id); try { return fn(); } finally { st.pop(); } }
+defAdv('g_countif', 'group', 'num', ['符合 %c 的%f數量', 'number of %f where %c', '%c を満たす%fの数'], { c: { t: 'bool' }, f: A_KIND }, {
+  eachArgs: ['c'], ev(cx, a) { let n = 0; for (const b of bodiesOf(cx.u, a.f)) if (withEach(cx, b.id, () => bkBool(cx, a.c))) n++; return n; } });
+const AGG = [['sum', ['總和', 'total', '合計']], ['avg', ['平均', 'average', '平均']], ['max', ['最大值', 'largest', '最大']], ['min', ['最小值', 'smallest', '最小']]];
+defAdv('g_agg', 'group', 'num', ['所有%f的%p%st', '%st %p of all %f', 'すべての%fの%pの%st'], { f: A_KIND, p: aEnum(BODY_PROPS), st: aEnum(AGG) }, {
+  ev(cx, a) {
+    const l = bodiesOf(cx.u, a.f).map(b => bodyProp(cx.u, b, a.p)).filter(isNum); if (!l.length) return 0;
+    if (a.st === 'max') return Math.max(...l); if (a.st === 'min') return Math.min(...l);
+    const s = l.reduce((x, y) => x + y, 0); return a.st === 'avg' ? s / l.length : s;
+  } });
+defAdv('q_is', 'group', 'bool', ['%a 是%f', '%a is one of the %f', '%a は%f'], { a: A_BODY, f: aEnum(BODY_KINDS.filter(k => k[0] !== 'all')) }, {
+  ev(cx, a) { const b = bkBody(cx, a.a); return !!(b && bodyIs(b, a.f)); } });
+defAdv('q_same', 'group', 'bool', ['%a 和 %b 是同一個', '%a is the same body as %b', '%a と %b は同じ天体'], { a: A_BODY, b: A_BODY }, {
+  ev(cx, a) { const x = bkBody(cx, a.a), y = bkBody(cx, a.b); return !!(x && y && x === y); } });
+
+// ---- laws of physics ------------------------------------------------------------------------------
+defAdv('w_law', 'law', 'stack', ['把引力改成和距離的 %n 次方成反比（在 %d %u 處強度不變）', 'make gravity fall off as 1 / distance^%n (same strength at %d %u)', '重力を距離の %n 乗に反比例させる（%d %u で強さは同じ）'],
+  { n: aNum(3), d: aNum(1), u: aUnit('dist', 'au') }, {
+  run(cx, a) {
+    const n = bkNum(cx, a.n), r0 = bkNum(cx, a.d) * UNIT_FACTOR[a.u]; if (!isNum(n) || !(r0 > 0)) return;
+    const u = cx.u, old = u.lawN; u.lawN = clamp(n, LAW_N_MIN, LAW_N_MAX); u.lawR0 = clamp(r0, 1, 1e18); u.dirty();
+    bkLog(cx, { type: 'law', from: old, to: u.lawN });
+  } });
+defAdv('w_expand', 'law', 'stack', ['讓空間膨脹：每 %n %u 距離變兩倍', 'make space expand: distances double every %n %u', '空間を膨張させる：%n %u ごとに距離が2倍'], { n: aNum(1), u: aUnit('time', 'y') }, {
+  run(cx, a) { const T = bkNum(cx, a.n) * UNIT_FACTOR[a.u]; if (!isNum(T)) return; cx.u.expT = T > 0 ? Math.max(T, 60) : 0; cx.u.dirty(); bkLog(cx, { type: 'expand', on: cx.u.expT > 0 }); } });
+defAdv('w_drag', 'law', 'stack', ['讓太空有阻力：每 %n %u 速度減半', 'give space a drag: speeds halve every %n %u', '宇宙に抵抗を：%n %u ごとに速さが半分'], { n: aNum(10), u: aUnit('time', 'y') }, {
+  run(cx, a) { const T = bkNum(cx, a.n) * UNIT_FACTOR[a.u]; if (!isNum(T)) return; cx.u.dragT = T > 0 ? Math.max(T, 60) : 0; cx.u.dirty(); bkLog(cx, { type: 'drag', on: cx.u.dragT > 0 }); } });
+const LAW_OFF = [['law', ['改過的引力（回到 1/距離²）', 'changed gravity (back to 1 / distance²)', '変えた重力（1/距離² に戻す）']], ['expand', ['空間膨脹', 'expanding space', '空間の膨張']],
+  ['drag', ['太空阻力', 'drag', '宇宙の抵抗']], ['engines', ['所有引擎', 'every engine', 'すべてのエンジン']], ['all', ['全部（回到真實物理）', 'all of them (back to real physics)', 'すべて（現実の物理に戻す）']]];
+defAdv('w_lawoff', 'law', 'stack', ['關掉 %k', 'switch off %k', '%k をやめる'], { k: aEnum(LAW_OFF) }, {
+  run(cx, a) {
+    const u = cx.u, k = a.k, all = k === 'all';
+    if (all || k === 'law') { u.lawN = 2; u.lawR0 = AU; }
+    if (all || k === 'expand') u.expT = 0;
+    if (all || k === 'drag') u.dragT = 0;
+    if (all || k === 'engines') for (const b of u.bodies) b.th = null;
+    u.dirty(); bkLog(cx, { type: 'lawoff', k });
+  } });
+// an engine: a steady push, in the same directions as the basic "push" block (measured against what the body goes around
+// at the moment it starts), or toward a chosen body
+function startEngine(cx, b, acc, dir, ref) {
+  if (!b || !isNum(acc)) return;
+  b.th = cleanThrust({ a: acc, dir, ref: ref ? ref.id : null }); cx.u.dirty();
+  bkLog(cx, { type: 'engine', id: b.id, a: acc });
+}
+defAdv('b_thrust', 'law', 'stack', ['讓 %b 開引擎：每秒加速 %n m/s，往 %dir', 'start the engine of %b: %n m/s faster every second, %dir', '%b のエンジンを点火：毎秒 %n m/s 加速、%dir'],
+  { b: A_BODY, n: aNum(1), dir: aEnum(PUSH_DIRS) }, {
+  run(cx, a) {
+    const b = bkBody(cx, a.b); if (!b) return;
+    const map = { fwd: 'fwd', back: 'back', out: 'away', in: 'to', up: 'up', down: 'down' };
+    startEngine(cx, b, bkNum(cx, a.n), map[a.dir] || 'fwd', cx.u.parentOf(b));
+  } });
+defAdv('b_thrustto', 'law', 'stack', ['讓 %b 開引擎：每秒加速 %n m/s，朝向 %c', 'start the engine of %b: %n m/s faster every second, toward %c', '%b のエンジンを点火：毎秒 %n m/s 加速、%c の方へ'],
+  { b: A_BODY, n: aNum(1), c: A_BODY }, {
+  run(cx, a) { const b = bkBody(cx, a.b), c = bkBody(cx, a.c); if (!b || !c || b === c) return; startEngine(cx, b, bkNum(cx, a.n), 'to', c); } });
+defAdv('b_thrustoff', 'law', 'stack', ['關掉 %b 的引擎', 'stop the engine of %b', '%b のエンジンを止める'], { b: A_BODY }, {
+  run(cx, a) { const b = bkBody(cx, a.b); if (!b || !b.th) return; b.th = null; cx.u.dirty(); bkLog(cx, { type: 'engine', id: b.id, a: 0 }); } });
+
+// ---- messages and your own blocks ------------------------------------------------------------------
+defAdv('ev_recv', 'my', 'hat', ['當收到廣播 %s', 'when I receive %s', '%s を受け取ったとき'], { s: { t: 'text', d: ['出發', 'go', 'スタート'] } });
+defAdv('x_send', 'my', 'stack', ['廣播 %s', 'broadcast %s', '%s を送る'], { s: { t: 'text', d: ['出發', 'go', 'スタート'] } }, {
+  run(cx, a) { Interp.broadcast(cx, a.s, null); } });
+defAdv('x_sendb', 'my', 'stack', ['廣播 %s，並交出 %b', 'broadcast %s, handing over %b', '%s を %b と一緒に送る'], { s: { t: 'text', d: ['出發', 'go', 'スタート'] }, b: A_BODY }, {
+  run(cx, a) { const b = bkBody(cx, a.b); Interp.broadcast(cx, a.s, b ? b.id : null); } });
+// A custom block: its definition is a script under a "define" hat; calling it runs that script with the arguments
+// (numbers n0…n2, bodies b0…b2 — whichever the block declares). Inside, the arguments are round/body reporters.
+const PROC_ARGS = { proc: { t: 'proc' }, n0: aNum(0), n1: aNum(0), n2: aNum(0), b0: A_BODY_REF, b1: A_BODY_REF, b2: A_BODY_REF };
+function procLabel(proc, withSlots) {
+  if (!proc) return pickLang(['（找不到這塊積木的定義）', '(this block\'s definition is missing)', '（このブロックの定義がありません）']);
+  let s = proc.name;
+  if (withSlots) proc.params.forEach((q, i) => { s += ' ' + q.n + ' %' + (q.t === 'body' ? 'b' : 'n') + i; });
+  return s;
+}
+defAdv('p_def', 'my', 'hat', ['定義', 'define', '定義'], { proc: { t: 'proc' } }, { labelFor: (blk, prog) => pickLang(['定義', 'define', '定義']) + ' ' + procLabel(procOf(prog, blk.a.proc), false) });
+defAdv('p_call', 'my', 'stack', ['我的積木', 'my block', 'マイブロック'], PROC_ARGS, {
+  labelFor: (blk, prog) => procLabel(procOf(prog, blk.a.proc), true),
+  step(cx, blk, fr) {
+    fr.i++;
+    const proc = procOf(cx.prog, blk.a.proc), def = proc ? procDef(cx.prog, proc.id) : null; if (!def) return;
+    let depth = 0; for (const f of cx.th.st) if (f.env) depth++;
+    if (depth >= 40) { cx.u.logEvent({ type: 'error', text: 'custom blocks called each other too deeply' }); return; }
+    const v = proc.params.map((q, i) => { if (q.t === 'body') { const b = bkBody(cx, blk.a['b' + i]); return b ? b.id : null; } return bkNum(cx, blk.a['n' + i]); });
+    cx.th.st.push({ o: null, s: 'body', i: 0, rep: 0, sid: def.id, env: { proc: proc.id, v } });
+  } });
+const argName = (blk, prog) => { const p = procOf(prog, blk.a.proc), q = p && p.params[blk.a.i]; return q ? q.n : '?'; };
+defAdv('p_arg', 'my', 'num', ['參數', 'argument', '引数'], { proc: { t: 'proc' }, i: { t: 'idx' } }, {
+  labelFor: argName, ev(cx, a) { const e = bkEnv(cx); if (!e || e.proc !== a.proc) return 0; const x = e.v[a.i]; return isNum(x) ? x : 0; } });
+defAdv('p_argb', 'my', 'bref', ['參數', 'argument', '引数'], { proc: { t: 'proc' }, i: { t: 'idx' } }, {
+  labelFor: argName, ev(cx, a) { const e = bkEnv(cx); if (!e || e.proc !== a.proc) return null; const x = e.v[a.i]; return typeof x === 'string' && cx.u.byId(x) ? x : null; } });
+
+// ---- measuring: lists and curves ----------------------------------------------------------------------
+function listOf(cx, name) { return name && (cx.prog.lists || []).indexOf(name) >= 0 ? (cx.u.lists[name] || (cx.u.lists[name] = [])) : null; }
+defAdv('l_add', 'data', 'stack', ['把 %n 加到清單 %l', 'add %n to list %l', '%n をリスト %l に加える'], { n: aNum(1), l: { t: 'list' } }, {
+  run(cx, a) { const L = listOf(cx, a.l); if (!L) return; L.push(bkNum(cx, a.n)); if (L.length > LIST_MAX) L.splice(0, L.length - LIST_MAX); } });
+defAdv('l_clear', 'data', 'stack', ['清空清單 %l', 'clear list %l', 'リスト %l を空にする'], { l: { t: 'list' } }, { run(cx, a) { const L = listOf(cx, a.l); if (L) L.length = 0; } });
+defAdv('l_item', 'data', 'num', ['清單 %l 的第 %i 項', 'item %i of list %l', 'リスト %l の %i 番目'], { l: { t: 'list' }, i: aNum(1) }, {
+  ev(cx, a) { const L = listOf(cx, a.l); if (!L) return 0; const i = Math.round(bkNum(cx, a.i)); const x = i >= 1 ? L[i - 1] : i <= -1 ? L[L.length + i] : undefined; return isNum(x) ? x : 0; } });       // −1 = the last one
+defAdv('l_len', 'data', 'num', ['清單 %l 的長度', 'length of list %l', 'リスト %l の長さ'], { l: { t: 'list' } }, { ev(cx, a) { const L = listOf(cx, a.l); return L ? L.length : 0; } });
+const LSTAT = [['avg', ['平均', 'average', '平均']], ['max', ['最大值', 'largest', '最大']], ['min', ['最小值', 'smallest', '最小']], ['sum', ['總和', 'total', '合計']], ['last', ['最後一項', 'last item', '最後の項目']]];
+defAdv('l_stat', 'data', 'num', ['清單 %l 的%st', '%st of list %l', 'リスト %l の%st'], { l: { t: 'list' }, st: aEnum(LSTAT) }, {
+  ev(cx, a) {
+    const L = listOf(cx, a.l); if (!L || !L.length) return 0;
+    if (a.st === 'last') return L[L.length - 1]; if (a.st === 'max') return Math.max(...L); if (a.st === 'min') return Math.min(...L);
+    const s = L.reduce((x, y) => x + y, 0); return a.st === 'avg' ? s / L.length : s;
+  } });
+// a point on a curve; past PLOT_MAX_POINTS every other point goes (the curve keeps its whole span, just coarser)
+function plotAdd(cx, name, k, pt) {
+  const u = cx.u; name = String(name == null ? '' : name).trim().slice(0, 32) || '?';
+  let s = u.plots[name];
+  if (!s || s.k !== k) {
+    if (!s && Object.keys(u.plots).length >= PLOT_MAX_SERIES) return;
+    s = u.plots[name] = { k, pts: [] };
+    cx.fx.push({ type: 'plot', name, tag: cx.tag });
+  }
+  const last = s.pts[s.pts.length - 1];
+  if (last && (k === 'xy' ? last[2] : last[0]) === (k === 'xy' ? pt[2] : pt[0])) s.pts[s.pts.length - 1] = pt;      // same instant: keep the newest
+  else s.pts.push(pt);
+  if (s.pts.length > PLOT_MAX_POINTS) { const n = s.pts.length; s.pts = s.pts.filter((p, i) => i % 2 === 0 || i === n - 1); }
+}
+defAdv('d_plot', 'data', 'stack', ['把 %n 畫進曲線 %s', 'plot %n on curve %s', '%n を曲線 %s に描く'], { n: aNum(1), s: { t: 'text', d: ['距離', 'distance', '距離'] } }, {
+  run(cx, a) { const v = bkNum(cx, a.n); if (isNum(v)) plotAdd(cx, a.s, 't', [cx.u.t, v]); } });
+defAdv('d_plotxy', 'data', 'stack', ['在圖 %s 上畫點 x %x、y %y', 'plot the point x %x, y %y on chart %s', 'グラフ %s に点 x %x、y %y を描く'], { s: { t: 'text', d: ['軌道', 'orbit', '軌道'] }, x: aNum(0), y: aNum(0) }, {
+  run(cx, a) { const x = bkNum(cx, a.x), y = bkNum(cx, a.y); if (isNum(x) && isNum(y)) plotAdd(cx, a.s, 'xy', [x, y, cx.u.t]); } });
+defAdv('d_clear', 'data', 'stack', ['清除曲線 %s', 'clear curve %s', '曲線 %s を消す'], { s: { t: 'text', d: ['距離', 'distance', '距離'] } }, {
+  run(cx, a) { delete cx.u.plots[String(a.s == null ? '' : a.s).trim().slice(0, 32)]; } });
+defAdv('d_open', 'data', 'stack', ['打開量測圖表', 'open the measurement charts', '計測グラフを開く'], {}, { run(cx) { cx.fx.push({ type: 'dataview', tag: cx.tag }); } });
+
+// what each category adds in the advanced layer (the lists, your blocks and their arguments are added by the editor)
+const BLOCK_PALETTE_ADV = {
+  event: ['ev_recv'],
+  body: ['b_burn', 'b_setprop', 'b_clone', 'b_setpos', 'b_setvel', 'b_rename'],
+  world: ['w_msgv'],
+  control: ['c_forever', 'c_until', 'c_stopall'],
+  value: ['v_prop', 'v_fn', 'v_pow', 'v_mod', 'v_minmax', 'v_const', 'v_comp', 'v_orbel'],
+  cond: ['q_cmp2'],
+  var: [],
+  group: ['g_each', 'r_pick', 'r_near', 'r_parent', 'r_rand', 'r_made', 'r_named', 'g_count', 'g_countif', 'g_agg', 'q_is', 'q_same'],
+  law: ['w_law', 'w_expand', 'w_drag', 'b_thrust', 'b_thrustto', 'b_thrustoff', 'w_lawoff'],
+  my: ['x_send', 'x_sendb', 'ev_recv'],
+  data: ['d_plot', 'd_plotxy', 'd_clear', 'd_open'],
+  dataList: ['l_add', 'l_clear', 'l_item', 'l_len', 'l_stat'],
 };
 
 // ---- 30_session.js ----
@@ -2544,8 +3170,12 @@ class Session {
     return s;
   }
   restoreState(s) {
+    const oldA = this.A, oldB = this.B;
     this.A = Universe.deserialize(s.A);
     this.B = s.B ? Universe.deserialize(s.B) : null;
+    // measurements are not in the snapshots: what was drawn up to the moment returned to stays, the rest goes
+    if (!s.A.plots && oldA) this.A.plots = trimPlots(oldA.plots, s.t);
+    if (this.B && !s.B.plots && oldB) this.B.plots = trimPlots(oldB.plots, s.t);
     if (!this.B) { if (this.active === 'B') this.active = 'A'; if (this.viewMode !== 'A') this.viewMode = 'A'; }
     else if (this.viewMode === 'A' && this.active === 'A' && s.view && s.view !== 'A') { this.viewMode = s.view; this.active = s.active === 'B' ? 'B' : 'A'; }   // a parallel universe came back
     else if (this.viewMode === 'A' && this.active === 'B') this.viewMode = 'B';
@@ -2645,7 +3275,7 @@ class Session {
     return Object.assign({
       format: 'gravity-lab', version: SAVE_VERSION, model: MODEL_VERSION,
       id: this.id, name: this.name, created: this.created, modified: this.modified, template: this.template,
-      A: this.A.serialize(), B: this.B ? this.B.serialize() : null,
+      A: this.A.serialize({ plots: 'save' }), B: this.B ? this.B.serialize({ plots: 'save' }) : null,
       program: serializeProgram(this.program),
       origin: this.origin, genesis: this.genesis,
       active: this.active, viewMode: this.viewMode, warp: this.warp, cam: this.cam, settings: this.settings,
@@ -2708,6 +3338,25 @@ function sanitizeVo(vo) {
   }
   return Object.keys(out).length ? out : null;
 }
+// a frame of a waiting script, from an untrusted save: where it is (o, s, i), what repeats (rep, loop), a for-each
+// (each = the bodies it goes through, k = which one now) and a custom block's call (sid = its definition, env = arguments)
+function cleanFrame(f, has) {
+  if (!f || ['body', 'sub', 'sub2'].indexOf(f.s) < 0 || !isNum(f.i)) return null;
+  const c = { o: f.o == null ? null : String(f.o).slice(0, 40), s: f.s, i: Math.max(0, Math.floor(f.i)), rep: isNum(f.rep) ? Math.max(0, Math.floor(f.rep)) : 0 };
+  if (f.lp === 'f' || f.lp === 'u') c.lp = f.lp;
+  if (Array.isArray(f.each)) { c.each = f.each.slice(0, MAX_BODIES).map(String).filter(has); c.k = isNum(f.k) ? clamp(Math.floor(f.k), 0, Math.max(0, c.each.length - 1)) : 0; }
+  if (typeof f.sid === 'string') {
+    c.sid = f.sid.slice(0, 40);
+    const e = f.env && typeof f.env === 'object' ? f.env : {};
+    c.env = { proc: String(e.proc || '').slice(0, 40), v: (Array.isArray(e.v) ? e.v : []).slice(0, 3).map(x => isNum(x) ? x : (typeof x === 'string' && has(x) ? x : null)) };
+  }
+  return c;
+}
+function trimPlots(pl, t) {
+  const out = {};
+  for (const k in pl || {}) { const s = pl[k]; const pts = s.pts.filter(p => (s.k === 'xy' ? p[2] : p[0]) <= t + 1e-6); if (pts.length) out[k] = { k: s.k, pts }; }
+  return out;
+}
 function sanitizeUniverse(o) {
   if (!o || typeof o !== 'object' || !Array.isArray(o.bodies)) throw new Error('bad-universe');
   if (o.bodies.length > MAX_BODIES) throw new Error('too-many-bodies');
@@ -2728,6 +3377,7 @@ function sanitizeUniverse(o) {
       src: b.src !== false, aff: b.aff !== false, pin: !!b.pin, repel: !!b.repel, vo: sanitizeVo(b.vo), born: isNum(b.born) ? b.born : 0,
       origin: typeof b.origin === 'string' ? b.origin.slice(0, 12) : 'placed',
       debris: b.debris === true, ts: isNum(b.ts) && b.ts > 0 ? Math.min(b.ts, 2 * ROCHE_STRESS) : 0, tn: isNum(b.tn) ? clamp(Math.floor(b.tn), 0, ROCHE_STRIPS) : 0,
+      th: cleanThrust(b.th),
     });
   }
   const has = (id) => typeof id === 'string' && ids[id];
@@ -2749,8 +3399,8 @@ function sanitizeUniverse(o) {
     for (const th of (Array.isArray(o.rt.threads) ? o.rt.threads : []).slice(0, 64)) {
       if (!th || typeof th.sid !== 'string' || !Array.isArray(th.st) || th.st.length > 40) continue;
       const st = [];
-      for (const f of th.st) { if (!f || ['body', 'sub', 'sub2'].indexOf(f.s) < 0 || !isNum(f.i)) { st.length = 0; break; } st.push({ o: f.o == null ? null : String(f.o).slice(0, 40), s: f.s, i: Math.max(0, Math.floor(f.i)), rep: isNum(f.rep) ? Math.max(0, Math.floor(f.rep)) : 0 }); }
-      if (st.length) rt.threads.push({ sid: th.sid.slice(0, 40), st, wake: isNum(th.wake) ? th.wake : null, it: has(th.it) ? th.it : null, other: has(th.other) ? th.other : null });
+      for (const f of th.st) { const c = cleanFrame(f, has); if (!c) { st.length = 0; break; } st.push(c); }
+      if (st.length) rt.threads.push({ sid: th.sid.slice(0, 40), st, wake: isNum(th.wake) ? th.wake : null, it: has(th.it) ? th.it : null, other: has(th.other) ? th.other : null, y: isNum(th.y) ? th.y : null });
     }
   }
   const touch = {}, track = {};
@@ -2763,7 +3413,10 @@ function sanitizeUniverse(o) {
     for (const k in e) { if (++n > 12) break; const v = e[k]; if (isNum(v) || typeof v === 'boolean') c[k] = v; else if (typeof v === 'string') c[k] = v.slice(0, 120); }
     log.push(c);
   }
+  const lists = {}; let nl = 0;
+  if (o.lists && typeof o.lists === 'object') for (const k in o.lists) { if (++nl > 20) break; const l = o.lists[k]; if (Array.isArray(l)) lists[String(k).slice(0, 24)] = l.slice(-LIST_MAX).map(x => isNum(x) ? x : 0); }
   return {
+    lawN: o.lawN, lawR0: o.lawR0, expT: o.expT, dragT: o.dragT, lists, plots: o.plots && typeof o.plots === 'object' ? plotsCopy(o.plots, 0) : undefined,     // ranges are enforced by Universe.deserialize
     t: o.t, gScale: isNum(o.gScale) ? clamp(o.gScale, -100, 100) : 1, gravityOn: o.gravityOn !== false, eta: isNum(o.eta) ? clamp(o.eta, 0.005, 0.2) : ETA_PRESETS.std,
     seed: isNum(o.seed) ? (o.seed >>> 0) : newSeed(), nextId: isNum(o.nextId) ? Math.max(1, Math.floor(o.nextId)) : 1, idp: o.idp === 'c' ? 'c' : 'b',
     collide: COLLIDE_MODES.indexOf(o.collide) >= 0 ? o.collide : 'real', roche: o.roche !== false,     // saves from before collisions existed get them switched on
@@ -6443,7 +7096,7 @@ const ICONS = {
   download: 'M12 4v11M7 11l5 5 5-5M5 20h14', upload: 'M12 16V5M7 9l5-5 5 5M5 20h14',
   info: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 11v6M12 7.5h.01', down: 'M6 9l6 6 6-6', up: 'M6 15l6-6 6 6', right: 'M9 5l7 7-7 7',
   edit: 'M4 20h4L19 9l-4-4L4 16zM13 7l4 4', list: 'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',
-  flask: 'M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M7.5 15h9', lock: 'M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3',
+  chart: 'M4 4v16h16M7.5 15l3.5-4.5 3 2.5 5-6.5', flask: 'M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M7.5 15h9', lock: 'M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3',
   move: 'M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3',
   orbit: 'M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM20.5 9.5C19 7.4 15.800 6 12 6c-5 0-9 2.700-9 6s4 6 9 6c3.800 0 7-1.400 8.500-3.500M21 6v4h-4',
   help: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM9.5 9.500a2.500 2.500 0 1 1 3.500 2.300c-.700.400-1 1-1 1.700M12 17h.01',
@@ -6809,15 +7462,18 @@ const Win = {
   },
   // how tall the trays resting on the rail are, in the middle and at the right of the screen: notes and the player's own buttons sit above them
   rest() {
-    const a = this.area(); let mid = 0, right = 0;
+    const a = this.area(); let mid = 0, right = 0, rx = 0;
     for (const n in this.open) {
       const d = this.open[n].disp; if (!d || this.open[n].def.viewport || this.open[n].min) continue;
+      // a tall tray down the right side of a wide screen: lifting the buttons over it would not clear it, so they (and the
+      // notes) move beside it instead
+      if (a.W >= 600 && d.x + d.w > a.W - 70 && d.y < a.y1 - a.H * 0.6 + 10 && d.y + d.h > a.y1 - 160) { rx = Math.max(rx, a.x1 - d.x + 6); continue; }
       if (d.y + d.h < a.y1 - 30 || d.y > a.y1 - 20) continue;
       const hgt = Math.min(a.y1 - d.y + 4, Math.round(a.H * 0.6));
       if (d.x < a.W / 2 + 40 && d.x + d.w > a.W / 2 - 40) mid = Math.max(mid, hgt);
       if (d.x + d.w > a.W - 70) right = Math.max(right, hgt);
     }
-    if (mid !== this._restM || right !== this._restR) { this._restM = mid; this._restR = right; const st = document.documentElement.style; st.setProperty('--rest', mid + 'px'); st.setProperty('--rest-r', right + 'px'); }
+    if (mid !== this._restM || right !== this._restR || rx !== this._restX) { this._restM = mid; this._restR = right; this._restX = rx; const st = document.documentElement.style; st.setProperty('--rest', mid + 'px'); st.setProperty('--rest-r', right + 'px'); st.setProperty('--rest-rx', rx + 'px'); }
   },
   // Folding leaves only the bar. The bar stays where the tray's top was — unless the tray grew upwards from its bar, or rests
   // on the rail, in which case the bar goes back down to the tray's bottom edge. Folding and opening therefore always return
@@ -7904,7 +8560,7 @@ const App = {
       const D = this.pred.rel ? u.byId(this.pred.rel) : null, base = D ? D.p : [0, 0, 0];
       out.push({ tag, pts: this.pred.pts.map(p => [base[0] + p[0], base[1] + p[1], base[2] + p[2]]), color: [0.56, 0.88, 0.8], alpha: 0.95, fade: true });
     }
-    if (this.renderer.settings.orbits && this.sel && !this.aim) {
+    if (this.renderer.settings.orbits && this.sel && !this.aim && u.isNewtonian()) {      // under laws of one's own making the conic is not where it goes
       const b = u.byId(this.sel), el = b ? u.orbitOf(b) : null;
       if (el && el.bound && el.e < 0.985 && isFinite(el.a)) {
         const par = el.parent, rv = V.sub(b.p, par.p), vv = V.sub(b.v, par.pin ? [0, 0, 0] : par.v), mu = el.mu;
@@ -7964,6 +8620,7 @@ const App = {
       else if (f.type === 'warp') HUD.refresh();
       else if (f.type === 'impact') this.onImpact(f);
       else if (f.type === 'decided') ChallengeUI.decided();
+      else if (f.type === 'plot' || f.type === 'dataview') DataView.onFx(f);
     }
     HUD.refresh();
   },
@@ -8928,11 +9585,23 @@ const HUD = {
     }
     Win.refresh();
   },
+  // laws of physics a script changed: said once, under the variables, so a saved universe never behaves oddly unexplained
+  lawText(u) {
+    const parts = [];
+    if (u.lawN !== 2) parts.push(T('law_n', { n: sig(u.lawN, 3) }));
+    if (u.expT > 0) parts.push(T('law_exp'));
+    if (u.dragT > 0) parts.push(T('law_drag'));
+    const ne = u.bodies.reduce((n, b) => n + (b.th ? 1 : 0), 0); if (ne) parts.push(T('law_eng', { n: ne }));
+    return parts.join(' · ');
+  },
   syncVars(force) {
-    const s = App.session, names = s.program.vars, key = names.join('\n') + (s.B ? '|B' : '');
+    const s = App.session, names = s.program.vars;
+    const la = this.lawText(s.A), lb = s.B ? this.lawText(s.B) : '', law = la || lb ? (s.B && la !== lb ? 'A ' + (la || '—') + ' ｜ B ' + (lb || '—') : la || lb) : '';
+    const key = names.join('\n') + (s.B ? '|B' : '') + '#' + law;
     if (force || key !== this._varKey) {
       this._varKey = key; clear(this.vars); this._varEls = [];
       for (const n of names) { const a = h('i'), b = s.B ? h('i', { class: 'b' }) : null; this.vars.append(h('div', { class: 'varchip' }, h('b', { text: n }), a, b)); this._varEls.push([n, a, b]); }
+      if (law) this.vars.append(h('div', { class: 'varchip law' }, h('b', { text: T('law_title') }), h('span', { text: law })));
     }
     for (const [n, a, b] of (this._varEls || [])) {
       const va = sig(isNum(s.A.vars[n]) ? s.A.vars[n] : 0, 4); if (a.textContent !== va) a.textContent = va;
@@ -8945,6 +9614,10 @@ const HUD = {
     const key = labels.join('\n'); if (key === this._ubKey) return; this._ubKey = key;
     clear(this.userBtns);
     for (const l of labels.slice(0, 6)) this.userBtns.append(h('button', { class: 'ubtn', text: l, onclick: () => this.pressUser(l) }));
+    // toasts are centred: keep them narrow enough that they never lie over these buttons (a tap meant for a button
+    // must not land on a toast's action, such as "back to start")
+    const app = document.getElementById('app'), w = this.userBtns.offsetWidth;
+    if (app) app.style.setProperty('--ub-w', w ? (w + 12) + 'px' : '0px');
   },
   pressUser(label) {
     const s = App.session;
@@ -9118,6 +9791,8 @@ addStrings({
   to_home: ['回到你的宇宙', 'Back to your universes', '宇宙一覧へ'], help_title: ['操作說明', 'How to play', '操作ガイド'],
   focus_sel: ['飛到選取的天體', 'Fly to the selected body', '選択中の天体へ'], fit_all: ['看全部', 'See everything', '全体を見る'], about_x: ['這個實驗在問什麼', 'About this experiment', 'この実験について'],
   slower: ['時間慢一點', 'Slower', '遅く'], faster: ['時間快一點', 'Faster', '速く'], rate_title: ['每秒要過多久？', 'How much time passes each second?', '1秒で進む時間'],
+  law_title: ['自訂物理', 'Own physics', '独自の物理'], law_n: ['引力 ∝ 1/r^{n}', 'gravity ∝ 1/r^{n}', '重力 ∝ 1/r^{n}'], law_exp: ['空間膨脹', 'expanding space', '空間膨張'],
+  law_drag: ['太空阻力', 'drag', '抵抗'], law_eng: ['{n} 具引擎', '{n} engine(s)', 'エンジン {n} 基'],
   rewind: ['倒帶', 'Rewind', '巻き戻し'], undo: ['復原上一步', 'Undo last change', '元に戻す'], redo: ['重做', 'Redo', 'やり直す'],
   undo_none: ['沒有可以復原的修改', 'Nothing to undo', '元に戻す操作がありません'], undo_done: ['回到上一次修改之前', 'Back to before your last change', '直前の変更の前に戻りました'],
   play: ['開始', 'Play', '再生'], pause: ['暫停', 'Pause', '一時停止'], paused: ['已暫停', 'Paused', '停止中'],
@@ -10283,6 +10958,14 @@ const Inspector = {
   massUnit(b) { if (this.unitM[b.id]) return this.unitM[b.id]; const m = Math.abs(b.m); return m >= 0.05 * M_SUN ? 'ms' : m >= 30 * M_EARTH ? 'mj' : m >= 0.05 * M_EARTH ? 'me' : m >= 1e-4 * M_MOON ? 'mm' : 'kg'; },
   radiusUnit(b) { if (this.unitR[b.id]) return this.unitR[b.id]; return b.r >= 0.2 * R_SUN ? 'rs' : b.r >= 0.3 * R_EARTH ? 're' : 'km'; },
 
+  // an engine a block left running: what it does, and a way to stop it from here
+  engineRow(b, E) {
+    const t = b.th, dirs = { fwd: 'en_fwd', back: 'en_back', to: 'en_to', away: 'en_away', up: 'en_up', down: 'en_down' };
+    const ref = t.ref ? App.U().byId(t.ref) : null;
+    const what = T('en_what', { a: sig(t.a, 3), dir: T(dirs[t.dir] || 'en_fwd', { name: ref ? bodyName(ref) : '—' }) });
+    return h('div', { class: 'engine' }, icon('rocket'), h('div', null, h('b', { text: T('en_title') }), h('span', { text: what })),
+      btn(T('en_stop'), () => { E('engine', (bb) => { bb.th = null; }); Win.render('inspector'); HUD.syncVars(true); }, 'small'));
+  },
   build(head, body, arg, strip) {
     this.live = [];
     const u = App.U(), b = u.byId(App.sel);
@@ -10365,7 +11048,8 @@ const Inspector = {
     body.append(h('div', { class: 'sec' }, h('h3', { text: T('sec_gravity') }),
       sw(T('g_src'), 'src'), sw(T('g_aff'), 'aff'), sw(T('g_pin'), 'pin'),
       vis.vis === 'wh' || b.repel ? sw(T('g_repel'), 'repel') : null,
-      vis.vis === 'wh' ? h('p', { class: 'note', text: T('g_repel_note') }) : null));
+      vis.vis === 'wh' ? h('p', { class: 'note', text: T('g_repel_note') }) : null,
+      b.th ? this.engineRow(b, E) : null));
 
     // ---- transform --------------------------------------------------------------------
     body.append(h('div', { class: 'sec' }, h('h3', { text: T('sec_become') }),
@@ -10471,6 +11155,12 @@ Win.register('inspector', {
 });
 
 addStrings({
+  en_title: ['引擎運轉中', 'Engine running', 'エンジン作動中'], en_what: ['每秒加速 {a} m/s，{dir}', '{a} m/s faster every second, {dir}', '毎秒 {a} m/s 加速、{dir}'],
+  en_fwd: ['順著相對{name}的運動方向', 'along its motion relative to {name}', '{name} に対する進行方向'], en_back: ['逆著相對{name}的運動方向', 'against its motion relative to {name}', '{name} に対する進行方向の逆'],
+  en_to: ['朝向{name}', 'toward {name}', '{name} の方へ'], en_away: ['背向{name}', 'away from {name}', '{name} から離れる方へ'], en_up: ['往北', 'north', '北へ'], en_down: ['往南', 'south', '南へ'],
+  en_stop: ['關掉引擎', 'Stop engine', 'エンジン停止'],
+});
+addStrings({
   insp_none: ['沒有選取天體', 'Nothing selected', '選択なし'], insp_none_d: ['點一下宇宙裡的天體，就能看它的資料、改它的條件。', 'Tap a body in the universe to see and change it.', '宇宙の天体をタップすると、データの確認と変更ができます。'],
   act_fly: ['飛過去', 'Fly there', 'そこへ飛ぶ'], act_move: ['移動', 'Move', '動かす'], act_launch: ['從這裡發射', 'Launch from here', 'ここから発射'], act_copy: ['複製', 'Copy', '複製'],
   f_name: ['名稱', 'Name', '名前'], f_mass: ['質量', 'Mass', '質量'], f_radius: ['半徑', 'Radius', '半径'], f_speed: ['把速度改成', 'Set its speed to', '速さを変える'],
@@ -10511,9 +11201,9 @@ addStrings({
 // The model (session.program) is the source of truth; the DOM is rebuilt after
 // every change, so there is no hidden editor state to get out of sync.
 // ============================================================================
-const HAT_GIVES_IT = { ev_dist: 1, ev_touch: 1, ev_orbit: 1 };
+const HAT_GIVES_IT = { ev_dist: 1, ev_touch: 1, ev_orbit: 1, ev_recv: 1 };
 const BlocksUI = {
-  cat: 'event', undoStack: [], drag: null, cand: null, root: null, ws: null, canvas: null, pal: null, vals: [], _sig: '',
+  cat: 'event', undoStack: [], drag: null, cand: null, root: null, ws: null, canvas: null, pal: null, vals: [], _sig: '', adv: false,
 
   prog() { return App.session.program; },
 
@@ -10526,6 +11216,8 @@ const BlocksUI = {
     this.cats = h('div', { class: 'bk-cats', role: 'tablist' });
     this.root = h('div', { class: 'bk-editor' }, this.ws, this.pal, this.cats);
     body.append(this.root);
+    this.adv = Store.prefs().bkAdv === true;
+    if (!this.adv && this.catAdv(this.cat)) this.cat = 'event';
     this.bind(this.root);
     this.renderCats(); this.renderPalette(); this.renderWorkspace();
   },
@@ -10538,7 +11230,12 @@ const BlocksUI = {
       const s = App.session, u = App.U(), cx = { u, prog: s.program, tag: s.active, th: null, fx: [] };
       for (const v of this.vals) {
         let txt = '';
-        try { const d = BLOCKS[v.blk.op], x = d.ev(cx, v.blk.a, v.blk); txt = d.shape === 'bool' ? (x ? T('bk_true') : T('bk_false')) : sig(isNum(x) ? x : 0, 4); } catch (e) { txt = '—'; }
+        try {
+          const d = BLOCKS[v.blk.op], x = d.ev(cx, v.blk.a, v.blk);
+          if (d.shape === 'bool') txt = x ? T('bk_true') : T('bk_false');
+          else if (d.shape === 'bref') { const b = typeof x === 'string' ? u.byId(x) : null; txt = b ? bodyName(b) : '—'; }
+          else txt = sig(isNum(x) ? x : 0, 4);
+        } catch (e) { txt = '—'; }
         if (v.el.textContent !== '= ' + txt) v.el.textContent = '= ' + txt;
       }
     }
@@ -10554,28 +11251,64 @@ const BlocksUI = {
   help() {
     const row = (ic, a, b) => h('div', null, icon(ic), h('div', null, h('b', { text: a }), h('span', { text: b })));
     Modal.open(h('div', { class: 'dlg', role: 'dialog', 'aria-modal': 'true' }, h('h2', { text: T('bk_help') }),
-      h('div', { class: 'steps' }, row('flag', T('bkh_1'), T('bkh_1d')), row('blocks', T('bkh_2'), T('bkh_2d')), row('edit', T('bkh_3'), T('bkh_3d')), row('trash', T('bkh_4'), T('bkh_4d')), row('split', T('bkh_5'), T('bkh_5d'))),
+      h('div', { class: 'steps' }, row('flag', T('bkh_1'), T('bkh_1d')), row('blocks', T('bkh_2'), T('bkh_2d')), row('edit', T('bkh_3'), T('bkh_3d')), row('trash', T('bkh_4'), T('bkh_4d')), row('split', T('bkh_5'), T('bkh_5d')), row('flask', T('bkh_6'), T('bkh_6d'))),
       h('div', { class: 'acts' }, btn(T('ok'), () => Modal.close(), 'primary'))));
   },
 
   // ---- rendering ------------------------------------------------------------------
+  // ---- the advanced layer: one switch; the same language, more blocks and four more categories ------------------
+  catAdv(c) { const e = BLOCK_CATS.find(x => x[0] === c); return !!(e && e[2]); },
+  setAdv(on) {
+    this.adv = !!on; Store.setPref('bkAdv', this.adv);
+    if (!this.adv && this.catAdv(this.cat)) this.cat = 'event';
+    this.renderCats(); this.renderPalette(); this.renderWorkspace(); Sound.ui('tick');
+    if (this.adv && !Store.prefs().bkAdvSeen) { Store.setPref('bkAdvSeen', true); Toast.show(T('bk_adv_on'), { ms: 6500, key: 'bka' }); }
+  },
   renderCats() {
     clear(this.cats);
-    for (const [c, label] of BLOCK_CATS) {
-      const b = h('button', { class: 'bk-cat' + (c === this.cat ? ' on' : ''), role: 'tab', onclick: () => { this.cat = c; this.renderCats(); this.renderPalette(); this.pal.scrollLeft = 0; this.pal.scrollTop = 0; } }, h('i'), pickLang(label));
+    const sw = h('button', { class: 'bk-advsw' + (this.adv ? ' on' : ''), role: 'switch', 'aria-checked': String(this.adv), title: T('bk_adv_tip'), onclick: () => this.setAdv(!this.adv) }, h('i'), T('bk_adv'));
+    this.cats.append(sw);
+    for (const [c, label, adv] of BLOCK_CATS) {
+      if (adv && !this.adv) continue;
+      const b = h('button', { class: 'bk-cat' + (c === this.cat ? ' on' : '') + (adv ? ' adv' : ''), role: 'tab', onclick: () => { this.cat = c; this.renderCats(); this.renderPalette(); this.pal.scrollLeft = 0; this.pal.scrollTop = 0; } }, h('i'), pickLang(label));
       b.style.setProperty('--c', 'var(--bk-' + c + ')'); this.cats.append(b);
     }
   },
+  palBlock(op, ov) {
+    const el = this.renderBlock(newBlock(op, Object.assign(this.defaults(op), ov || {})), { pal: true });
+    el.dataset.op = op; if (ov) el.dataset.ov = JSON.stringify(ov);
+    this.pal.append(el);
+  },
   renderPalette() {
     clear(this.pal);
+    const p = this.prog(), lists = p.lists || [], procs = p.procs || [];
+    const tool = (text, fn, title) => this.pal.append(h('button', { class: 'bk-varbtn', text, title: title || text, onclick: fn }));
+    const note = (text) => this.pal.append(h('span', { class: 'note', text }));
     if (this.cat === 'var') {
-      this.pal.append(h('button', { class: 'bk-varbtn', text: T('bk_newvar'), onclick: () => this.newVar() }));
-      for (const v of this.prog().vars) this.pal.append(h('button', { class: 'bk-varbtn', text: '✕ ' + v, title: T('bk_delvar'), onclick: () => this.delVar(v) }));
-      if (!this.prog().vars.length) { this.pal.append(h('span', { class: 'note', text: T('bk_var_hint') })); return; }
+      tool(T('bk_newvar'), () => this.newVar());
+      for (const v of p.vars) tool('✕ ' + v, () => this.delVar(v), T('bk_delvar'));
+      if (!p.vars.length) { note(T('bk_var_hint')); return; }
     }
-    for (const op of BLOCK_PALETTE[this.cat] || []) {
-      const el = this.renderBlock(newBlock(op, this.defaults(op)), { pal: true });
-      el.dataset.op = op; this.pal.append(el);
+    if (this.cat === 'my') {
+      tool(T('bk_newproc'), () => this.editProc(null));
+      for (const pr of procs) this.palBlock('p_call', { proc: pr.id });
+      if (!procs.length) note(T('bk_proc_hint'));
+      for (const op of BLOCK_PALETTE_ADV.my) this.palBlock(op);
+      return;
+    }
+    if (this.cat === 'data') {
+      this.pal.append(h('button', { class: 'bk-varbtn solid', onclick: () => DataView.open() }, icon('chart'), T('dv_open')));
+      tool(T('bk_newlist'), () => this.newList());
+      for (const l of lists) tool('✕ ' + l, () => this.delList(l), T('bk_dellist'));
+      if (lists.length) for (const op of BLOCK_PALETTE_ADV.dataList) this.palBlock(op);
+      for (const op of BLOCK_PALETTE_ADV.data) this.palBlock(op);
+      return;
+    }
+    const base = BLOCK_PALETTE[this.cat] || [], extra = this.adv ? (BLOCK_PALETTE_ADV[this.cat] || []) : [];
+    for (const op of base) this.palBlock(op);
+    if (extra.length) {
+      if (base.length) this.pal.append(h('div', { class: 'bk-pdiv' }, h('span', { text: T('bk_adv') })));
+      for (const op of extra) this.palBlock(op);
     }
   },
   renderWorkspace() {
@@ -10587,8 +11320,9 @@ const BlocksUI = {
         h('div', { style: { marginTop: '12px' } }, btn(T('bk_example'), () => this.ideas(), 'small primary'))));
     }
     for (const s of prog.scripts) {
-      const el = h('div', { class: 'bk-script' + (!s.hat ? ' loose' : '') + (s.off ? ' off' : ''), data: { sid: s.id } });
-      const cx = { script: s };
+      const def = s.hat && s.hat.op === 'p_def';
+      const el = h('div', { class: 'bk-script' + (!s.hat ? ' loose' : '') + (s.off ? ' off' : '') + (def ? ' def' : ''), data: { sid: s.id } });
+      const cx = { script: s, proc: def ? procOf(prog, s.hat.a.proc) : null };
       if (s.expr) {
         const val = h('span', { class: 'bk-val' });
         el.append(h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } }, this.renderBlock(s.expr, cx), val));
@@ -10606,20 +11340,28 @@ const BlocksUI = {
     if (this.undoBtn) this.undoBtn.disabled = !this.undoStack.length;
     this.refresh();
   },
-  hasRandom(b) { if (!b || typeof b !== 'object') return false; if (b.op === 'v_rand') return true; for (const k in b.a) if (this.hasRandom(b.a[k])) return true; return false; },
+  hasRandom(b) { if (!b || typeof b !== 'object') return false; if (b.op === 'v_rand' || b.op === 'r_rand') return true; for (const k in b.a) if (this.hasRandom(b.a[k])) return true; return false; },
   shapeClass(shape) { return shape === 'c' || shape === 'c2' ? 'cblock' : shape; },
   renderBlock(blk, cx) {
-    const d = BLOCKS[blk.op];
-    const el = h('div', { class: 'bk ' + this.shapeClass(d.shape), data: { id: blk.id, cat: d.cat } });
+    const d = BLOCKS[blk.op], prog = this.prog();
+    const el = h('div', { class: 'bk ' + this.shapeClass(d.shape) + (d.adv ? ' adv' : ''), data: { id: blk.id, cat: d.cat } });
     const row = h('div', { class: 'bk-row' });
-    this.fillRow(row, pickLang(d.label), blk, d, cx);
+    this.fillRow(row, d.labelFor ? d.labelFor(blk, prog) : pickLang(d.label), blk, d, cx);
+    // your own blocks: the definition hat offers its arguments as little blocks to drag into the script below it
+    if (blk.op === 'p_def') { const pr = procOf(prog, blk.a.proc); if (pr) pr.params.forEach((q, i) => row.append(this.argChip(pr, q, i))); }
+    if ((blk.op === 'p_call' || blk.op === 'p_def') && !procOf(prog, blk.a.proc)) el.classList.add('missing');
+    if ((blk.op === 'p_arg' || blk.op === 'p_argb') && !cx.pal) {
+      const pr = procOf(prog, blk.a.proc), q = pr && pr.params[blk.a.i];
+      if (!q || (q.t === 'body') !== (blk.op === 'p_argb') || !cx.proc || cx.proc.id !== blk.a.proc) el.classList.add('missing');
+    }
     if (d.shape === 'hat' && !cx.pal) {
       const s = cx.script, forked = !!App.session.B;
       if (s.off || forked) row.append(h('button', { class: 'bk-tag' + (s.off ? ' off' : ''), text: s.off ? T('bk_off') : s.tag === 'AB' ? 'A＋B' : T('bk_only', { t: s.tag }), title: T('bk_tag_tip'), onclick: () => this.cycleTag(s) }));
     }
     el.append(row);
     if (d.shape === 'c' || d.shape === 'c2') {
-      const mouth = (key) => { const m = h('div', { class: 'bk-mouth', data: { owner: blk.id, key } }); for (const c of (blk[key] || [])) m.append(this.renderBlock(c, cx)); return m; };
+      const mcx = blk.op === 'g_each' ? Object.assign({}, cx, { each: (cx.each || 0) + 1 }) : cx;       // inside a for-each, "this one" means its body
+      const mouth = (key) => { const m = h('div', { class: 'bk-mouth', data: { owner: blk.id, key } }); for (const c of (blk[key] || [])) m.append(this.renderBlock(c, mcx)); return m; };
       el.append(mouth('sub'));
       if (d.shape === 'c2') { el.append(h('div', { class: 'bk-row mid' }, pickLang(d.label2)), mouth('sub2')); }
       el.append(h('div', { class: 'bk-foot' }));
@@ -10631,7 +11373,9 @@ const BlocksUI = {
     while ((m = re.exec(label))) {
       if (m.index > last) row.append(h('span', { text: label.slice(last, m.index).trim() }));
       const name = m[1], ar = d.args[name];
-      row.append(ar ? this.argEl(blk, name, ar, cx) : h('span', { text: m[0] }));
+      const acx = d.eachArgs && d.eachArgs.indexOf(name) >= 0 ? Object.assign({}, cx, { each: (cx.each || 0) + 1 }) : cx;
+      const el = ar ? this.argEl(blk, name, ar, acx) : h('span', { text: m[0] });
+      if (el) row.append(el);
       last = m.index + m[0].length;
     }
     if (last < label.length) { const t = label.slice(last).trim(); if (t) row.append(h('span', { text: t })); }
@@ -10680,22 +11424,46 @@ const BlocksUI = {
       opts.push(['@new', T('bk_newvar')]);
       return sel(opts, v || '', (val) => { if (val === '@new') this.newVar((n) => set(n)); else set(val || null); }, !v || vars.indexOf(v) < 0);
     }
+    if (ar.t === 'list') {
+      const ls = this.prog().lists || [], opts = ls.map(n => [n, n]);
+      if (!v || ls.indexOf(v) < 0) opts.unshift([v || '', v ? v + ' ?' : T('bk_picklist')]);
+      opts.push(['@new', T('bk_newlist')]);
+      return sel(opts, v || '', (val) => { if (val === '@new') this.newList((n) => set(n)); else set(val || null); }, !v || ls.indexOf(v) < 0);
+    }
+    if (ar.t === 'proc' || ar.t === 'idx') return null;
     if (ar.t === 'kind') {
       const groups = CAT_GROUPS.map(([g, label]) => ({ group: pickLang(label), items: CATALOG_ORDER.filter(k => CATALOG[k].grp === g).map(k => [k, catName(k)]) })).filter(g => g.items.length);
       return sel(groups, v, set);
     }
-    // body reference
+    // body reference: a slot that holds either a choice from the menu or (advanced) a block that picks a body
+    const slot = h('span', { class: 'bk-slot body', data: { owner: blk.id, arg: name, kind: 'body' } });
+    if (v && typeof v === 'object') { slot.append(this.renderBlock(v, cx)); return slot; }
     const u = App.U(), s = App.session, gives = cx.script && cx.script.hat && HAT_GIVES_IT[cx.script.hat.op] && blk !== cx.script.hat;
     const bodies = u.bodies.filter(b => !b.debris || b.id === v).sort((a, b) => Math.abs(b.m) - Math.abs(a.m)), opts = [];
+    const params = cx.proc ? cx.proc.params : [];
     if (ar.any) opts.push(['@any', T('bk_any')]);
     if (gives || v === '@it' || v === '@other' || cx.pal) { opts.push(['@it', T('bk_it')], ['@other', T('bk_other')]); }
+    if (cx.each || v === '@each') opts.push(['@each', T('bk_each')]);
+    params.forEach((q, i) => { if (q.t === 'body') opts.push(['@b' + i, T('bk_param', { name: q.n })]); });
+    if (/^@b[012]$/.test(v || '') && !opts.some(o => o[0] === v)) opts.push([v, T('bk_param', { name: '?' })]);
     for (const b of bodies) opts.push([b.id, bodyName(b)]);
     if (s.B) for (const b of (s.active === 'B' ? s.A : s.B).bodies) if (!u.byId(b.id) && (!b.debris || b.id === v)) opts.push([b.id, bodyName(b) + '（' + (s.active === 'B' ? 'A' : 'B') + '）']);
     let bad = false;
     if (v == null || v === '') { opts.unshift(['', T('bk_pickbody')]); bad = !cx.pal; }
-    else if (v[0] === '@') { bad = (v === '@it' || v === '@other') && !gives && !cx.pal; if (v === '@any' && !ar.any) opts.unshift(['@any', T('bk_any')]); }
+    else if (v[0] === '@') {
+      if (v === '@it' || v === '@other') bad = !gives && !cx.pal;
+      else if (v === '@each') bad = !cx.each && !cx.pal;
+      else if (/^@b[012]$/.test(v)) { const q = params[+v[2]]; bad = !q || q.t !== 'body'; }
+      if (v === '@any' && !ar.any) opts.unshift(['@any', T('bk_any')]);
+    }
     else if (!opts.some(o => o[0] === v)) { opts.unshift([v, T('bk_gone')]); bad = true; }
-    return sel(opts, v == null ? '' : v, (val) => set(val || null), bad);
+    slot.append(sel(opts, v == null ? '' : v, (val) => set(val || null), bad));
+    return slot;
+  },
+  argChip(pr, q, i) {
+    const body = q.t === 'body';
+    return h('div', { class: 'bk ' + (body ? 'bref' : 'num') + ' bk-chip adv', title: T('bk_chip_tip'), data: { op: body ? 'p_argb' : 'p_arg', cat: 'my', ov: JSON.stringify({ proc: pr.id, i }) } },
+      h('div', { class: 'bk-row' }, h('span', { text: q.n })));
   },
   // sensible starting bodies for a new block: the selected body and what it orbits
   defaults(op) {
@@ -10710,6 +11478,7 @@ const BlocksUI = {
     if (names.length === 1) out[names[0]] = (sel || list[0] || {}).id || null;
     else if (names.length >= 2) { out[names[0]] = first ? first.id : null; out[names[1]] = second ? second.id : null; }
     if (d.args.v && d.args.v.t === 'var') out.v = this.prog().vars[0] || null;
+    if (d.args.l && d.args.l.t === 'list') out.l = (this.prog().lists || [])[0] || null;
     return out;
   },
 
@@ -10719,15 +11488,40 @@ const BlocksUI = {
     this.pushUndo(); fn(); this.cleanup();
     const s = App.session; s.programChanged(); HUD.saveState(); HUD.syncUserBtns(); HUD.syncVars(true);
     this.renderWorkspace();
+    if (this._procGone) {        // a definition went into the bin, and its block with it
+      Toast.show(T('bk_proc_gone', { name: this._procGone }), { ms: 6500, key: 'bkpg', action: { label: T('bk_undo_s'), fn: () => this.undo() } });
+      this._procGone = null; this.renderPalette();
+    }
     // a start/timed script that already ran will not run again by itself
     if (s.origin && s.A.t > s.origin.t && !this._toldRestart) { this._toldRestart = true; Toast.show(T('bk_restart'), { ms: 6500, key: 'bkr', action: { label: T('par_restart'), fn: () => Parallel.restart() } }); }
   },
-  cleanup() { const p = this.prog(); p.scripts = p.scripts.filter(s => s.hat || s.body.length || s.expr); },
+  cleanup() {
+    const p = this.prog(); p.scripts = p.scripts.filter(s => s.hat || s.body.length || s.expr);
+    // a custom block whose definition was deleted goes too, with every call of it and every argument block
+    const gone = (p.procs || []).filter(pr => !procDef(p, pr.id));
+    if (!gone.length) return;
+    const ids = gone.map(pr => pr.id);
+    p.procs = p.procs.filter(pr => ids.indexOf(pr.id) < 0);
+    this.prune((b) => (b.op === 'p_call' || b.op === 'p_arg' || b.op === 'p_argb') && ids.indexOf(b.a.proc) >= 0);
+    this._procGone = gone.map(pr => pr.name).join('、');
+  },
+  // remove every block the test picks: from stacks (with nothing below it moving), from slots (back to the default), loose ones
+  prune(test) {
+    const p = this.prog();
+    const fix = (b) => {
+      for (const k in b.a) { const v = b.a[k]; if (v && typeof v === 'object') { if (test(v)) { const ar = BLOCKS[b.op].args[k]; b.a[k] = ar.t === 'num' ? ar.d : null; } else fix(v); } }
+      for (const key of ['sub', 'sub2']) if (b[key]) list(b[key]);
+    };
+    const list = (arr) => { for (let i = arr.length - 1; i >= 0; i--) { if (test(arr[i])) arr.splice(i, 1); else fix(arr[i]); } };
+    for (const sc of p.scripts) { if (sc.hat) fix(sc.hat); list(sc.body); if (sc.expr) { if (test(sc.expr)) sc.expr = null; else fix(sc.expr); } }
+    p.scripts = p.scripts.filter(sc => sc.hat || sc.body.length || sc.expr);
+  },
   undo() {
     const j = this.undoStack.pop(); if (!j) return;
     const s = App.session;
     try { s.program = validateProgram(JSON.parse(j)); } catch (e) { return; }
     s.programChanged(); HUD.saveState(); HUD.syncUserBtns(); HUD.syncVars(true); this.renderPalette(); this.renderWorkspace();
+    if (Win.isOpen('data')) Win.render('data');
   },
   // where a block lives in the program
   locate(id) {
@@ -10755,13 +11549,13 @@ const BlocksUI = {
     const p = this.prog();
     if (loc.kind === 'hat') { p.scripts.splice(p.scripts.indexOf(loc.script), 1); return { type: 'hat', script: loc.script }; }
     if (loc.kind === 'expr') { p.scripts.splice(p.scripts.indexOf(loc.script), 1); return { type: BLOCKS[loc.blk.op].shape, blocks: [loc.blk] }; }
-    if (loc.kind === 'slot') { const ar = BLOCKS[loc.owner.op].args[loc.arg]; loc.owner.a[loc.arg] = ar.t === 'num' ? ar.d : null; return { type: BLOCKS[loc.blk.op].shape, blocks: [loc.blk] }; }
+    if (loc.kind === 'slot') { const ar = BLOCKS[loc.owner.op].args[loc.arg]; loc.owner.a[loc.arg] = ar.t === 'num' ? ar.d : null; return { type: BLOCKS[loc.blk.op].shape, blocks: [loc.blk] }; }      // a body slot is left empty: choose again
     return { type: 'stack', blocks: loc.arr.splice(loc.index) };
   },
-  payloadFromPalette(op) {
-    const d = BLOCKS[op], b = newBlock(op, this.defaults(op));
+  payloadFromPalette(op, ov) {
+    const d = BLOCKS[op], b = newBlock(op, Object.assign(this.defaults(op), ov || {}));
     if (d.shape === 'hat') return { type: 'hat', script: newScript(b, [], 'AB') };
-    if (d.shape === 'num' || d.shape === 'bool') return { type: d.shape, blocks: [b] };
+    if (d.shape === 'num' || d.shape === 'bool' || d.shape === 'bref') return { type: d.shape, blocks: [b] };
     return { type: 'stack', blocks: [b] };
   },
   place(pay, target) {
@@ -10793,8 +11587,10 @@ const BlocksUI = {
   tapMenu(id) {
     const loc = this.locate(id); if (!loc) return;
     const s = loc.script, items = [];
-    const d = BLOCKS[loc.blk.op];
-    items.push({ label: T(loc.kind === 'hat' ? 'bk_dup_script' : loc.kind === 'list' ? 'bk_dup_below' : 'bk_dup'), icon: 'copy', fn: () => this.mutate(() => {
+    const d = BLOCKS[loc.blk.op], prog = this.prog();
+    if (loc.blk.op === 'p_def') { const pr = procOf(prog, loc.blk.a.proc); if (pr) items.push({ label: T('bk_editproc'), icon: 'edit', fn: () => this.editProc(pr) }); }
+    if (loc.blk.op === 'p_call') { const ds = procDef(prog, loc.blk.a.proc); if (ds) items.push({ label: T('bk_gotodef'), icon: 'right', fn: () => this.reveal(ds.hat.id) }); }
+    if (loc.blk.op !== 'p_def') items.push({ label: T(loc.kind === 'hat' ? 'bk_dup_script' : loc.kind === 'list' ? 'bk_dup_below' : 'bk_dup'), icon: 'copy', fn: () => this.mutate(() => {
       const p = this.prog();
       if (loc.kind === 'hat') { const c = newScript(cloneBlockTree(s.hat), s.body.map(cloneBlockTree), s.tag); c.off = s.off; p.scripts.splice(p.scripts.indexOf(s) + 1, 0, c); }
       else if (loc.kind === 'list') { const c = newScript(null, loc.arr.slice(loc.index).map(cloneBlockTree)); p.scripts.splice(p.scripts.indexOf(s) + 1, 0, c); }
@@ -10803,14 +11599,14 @@ const BlocksUI = {
     if (s.hat) items.push({ label: T(s.off ? 'bk_enable' : 'bk_disable'), icon: s.off ? 'play' : 'pause', fn: () => this.mutate(() => { s.off = !s.off; }) });
     if (s.hat && App.session.B) for (const t of ['AB', 'A', 'B']) if (t !== s.tag) items.push({ label: t === 'AB' ? T('bk_both') : T('bk_only_long', { t }), icon: 'split', fn: () => this.mutate(() => { s.tag = t; s.off = false; }) });
     items.push({ label: T(loc.kind === 'hat' ? 'bk_del_script' : loc.kind === 'list' && loc.index < loc.arr.length - 1 ? 'bk_del_below' : 'bk_del'), icon: 'trash', danger: true, fn: () => this.mutate(() => { this.take(id); }) });
-    menuDlg(pickLang(d.label).replace(/%[a-z0-9]+/g, '…'), items);
+    menuDlg((d.labelFor ? d.labelFor(loc.blk, prog) : pickLang(d.label)).replace(/%[a-z0-9]+/g, '…'), items);
   },
-  addFromPalette(op) {
+  addFromPalette(op, ov) {
     const d = BLOCKS[op];
-    if (d.shape === 'num' || d.shape === 'bool') { Toast.show(T(d.shape === 'num' ? 'bk_drag_num' : 'bk_drag_bool'), { key: 'bkd' }); return; }
+    if (d.shape === 'num' || d.shape === 'bool' || d.shape === 'bref') { Toast.show(T(d.shape === 'num' ? 'bk_drag_num' : d.shape === 'bool' ? 'bk_drag_bool' : 'bk_drag_body'), { key: 'bkd' }); return; }
     let newId = null;
     this.mutate(() => {
-      const pay = this.payloadFromPalette(op), p = this.prog();
+      const pay = this.payloadFromPalette(op, ov), p = this.prog();
       newId = pay.type === 'hat' ? pay.script.hat.id : pay.blocks[0].id;
       const last = p.scripts.filter(s => !s.expr).pop();
       if (pay.type === 'hat' || !last) this.place(pay, { into: 'new' });
@@ -10846,6 +11642,70 @@ const BlocksUI = {
     for (const u of App.session.universes()) delete u.vars[v];
     App.session.programChanged(); HUD.syncVars(true); this.renderPalette(); this.renderWorkspace();
   },
+  async newList(then) {
+    const n = await promptDlg({ title: T('bk_newlist'), text: T('bk_newlist_d'), max: 16, placeholder: T('bk_list_ph') });
+    if (!n) { this.renderWorkspace(); return; }
+    const p = this.prog(); p.lists = p.lists || [];
+    if (p.lists.indexOf(n) >= 0) { Toast.show(T('bk_var_dup')); this.renderWorkspace(); return; }
+    if (p.lists.length >= 20) return;
+    this.pushUndo(); p.lists.push(n);
+    if (then) then(n); else { App.session.programChanged(); this.renderWorkspace(); }
+    this.renderPalette(); if (Win.isOpen('data')) Win.render('data');
+  },
+  async delList(l) {
+    if (!await confirmDlg({ title: T('bk_dellist_q', { name: l }), ok: T('del'), danger: true })) return;
+    this.pushUndo(); const p = this.prog(); p.lists = (p.lists || []).filter(x => x !== l);
+    for (const u of App.session.universes()) delete u.lists[l];
+    App.session.programChanged(); this.renderPalette(); this.renderWorkspace(); if (Win.isOpen('data')) Win.render('data');
+  },
+  // make a block of your own, or change its name and arguments (up to three: numbers or bodies)
+  editProc(pr) {
+    const isNew = !pr, params = pr ? pr.params.map(q => ({ t: q.t, n: q.n })) : [];
+    const name = h('input', { class: 'inp wide', type: 'text', value: pr ? pr.name : '', maxLength: 30, placeholder: T('bk_proc_ph'), autocomplete: 'off' });
+    const list = h('div', { class: 'pp-list' }), preview = h('div', { class: 'pp-prev' });
+    const show = () => {         // what the block will look like
+      clear(preview);
+      const row = h('div', { class: 'bk-row' }, h('span', { text: name.value.trim() || T('bk_proc_ph') }));
+      for (const q of params) { row.append(h('span', { text: q.n || '?' })); row.append(h('span', { class: q.t === 'body' ? 'pp-b' : 'pp-n', text: q.t === 'body' ? T('bk_p_body') : '0' })); }
+      preview.append(h('div', { class: 'bk stack adv', data: { cat: 'my' } }, row));
+    };
+    const draw = () => {
+      clear(list);
+      params.forEach((q, i) => {
+        const inp = h('input', { class: 'inp', type: 'text', value: q.n, maxLength: 16, autocomplete: 'off', 'aria-label': T('bk_p_name') });
+        inp.addEventListener('input', () => { q.n = inp.value; show(); });
+        inp.addEventListener('keydown', (e) => e.stopPropagation());
+        list.append(h('div', { class: 'pp-row' }, segEl([['num', T('bk_p_num')], ['body', T('bk_p_body')]], q.t, (v) => { q.t = v; show(); }), inp, iconBtn('close', T('del'), () => { params.splice(i, 1); draw(); })));
+      });
+      addBtn.disabled = params.length >= 3; show();
+    };
+    const addBtn = btn(T('bk_p_add'), () => { if (params.length < 3) { params.push({ t: params.length ? 'num' : 'body', n: params.length ? T('bk_p_defnum') : T('bk_p_defbody') }); draw(); } }, 'small', 'plus');
+    name.addEventListener('input', show); name.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') ok(); });
+    const ok = () => {
+      const nm = name.value.trim(); if (!nm) { name.focus(); return; }
+      const clean = params.map(q => ({ t: q.t === 'body' ? 'body' : 'num', n: String(q.n || '').trim().slice(0, 16) || '?' }));
+      Modal.close();
+      let hatId = null;
+      this.mutate(() => {
+        const p = this.prog(); p.procs = p.procs || [];
+        if (isNew) {
+          const id = uid('p'); p.procs.push({ id, name: nm, params: clean });
+          const sc = newScript(newBlock('p_def', { proc: id }), [], 'AB'); p.scripts.push(sc); hatId = sc.hat.id;
+        } else {
+          const old = pr.params; pr.name = nm; pr.params = clean;
+          // an argument block that no longer fits (removed, or now the other kind) is taken out
+          this.prune((b) => (b.op === 'p_arg' || b.op === 'p_argb') && b.a.proc === pr.id && (!clean[b.a.i] || (clean[b.a.i].t === 'body') !== (b.op === 'p_argb') || (old[b.a.i] && old[b.a.i].t !== clean[b.a.i].t)));
+        }
+      });
+      if (isNew) { this.cat = 'my'; this.renderCats(); Toast.show(T('bk_proc_made'), { ms: 6000, key: 'bkpm' }); }
+      this.renderPalette(); if (hatId) this.reveal(hatId);
+    };
+    draw();
+    Modal.open(h('div', { class: 'dlg pp', role: 'dialog', 'aria-modal': 'true' }, h('h2', { text: T(isNew ? 'bk_newproc' : 'bk_editproc') }), h('p', { text: T('bk_proc_d') }),
+      fieldRow(T('bk_p_title'), name), h('div', { class: 'pp-head' }, h('b', { text: T('bk_p_args') }), addBtn), list, preview,
+      h('div', { class: 'acts' }, btn(T('cancel'), () => Modal.close(), 'quiet'), btn(T(isNew ? 'bk_p_make' : 'ok'), ok, 'primary'))));
+    setTimeout(() => { try { name.focus(); } catch (e) { /* ignore */ } }, 40);
+  },
   // ready-made scripts to start from, written for the bodies that are in this universe right now
   ideas() {
     const u = App.U(), list = u.bodies.filter(b => !b.debris).sort((a, b) => Math.abs(b.m) - Math.abs(a.m)), big = list[0] || null;
@@ -10856,7 +11716,7 @@ const BlocksUI = {
       this.mutate(() => { const p = this.prog(); for (const v of (vars || [])) if (p.vars.indexOf(v) < 0 && p.vars.length < 40) p.vars.push(v); for (const sc of scripts()) { p.scripts.push(sc); if (!first) first = sc.hat.id; } });
       this.renderPalette(); HUD.syncVars(true); this.reveal(first);
     };
-    const B = newBlock, S = (hat, body) => newScript(hat, body, 'AB'), items = [];
+    const B = (op, a, sub) => { const b = newBlock(op, a); if (sub) b.sub = sub; return b; }, S = (hat, body) => newScript(hat, body, 'AB'), items = [];
     if (big) items.push({ label: T('idea_time', { name: bodyName(big) }), icon: 'flag', fn: add(() => [S(B('ev_time', { n: 1, u: 'y' }), [B('b_mass', { b: big.id, n: 2, u: 'x' }), B('w_msg', { s: T('bk_example_msg', { name: bodyName(big) }) })])]) });
     if (list.length >= 2) {
       items.push({ label: T('idea_merge'), icon: 'flag', fn: add(() => [S(B('ev_touch', { a: '@any', b: '@any' }), [B('b_merge', { b: '@it', c: '@other' })])]) });
@@ -10871,6 +11731,28 @@ const BlocksUI = {
     }
     items.push({ label: T('idea_gravity'), icon: 'flag', fn: add(() => [S(B('ev_button', { s: T('idea_gravity_l') }), [B('w_g', { n: -1 }), B('c_wait', { n: 30, u: 'd' }), B('w_g', { n: 1 })])]) });
     items.push({ label: T('idea_pinball'), icon: 'flag', fn: add(() => [S(B('ev_button', { s: T('idea_pinball_l') }), [B('w_collide', { mode: 'bounce' }), B('w_roche', { sw: 'off' }), B('w_msg', { s: T('idea_pinball_m') })])]) });
+    if (this.adv) {
+      // the advanced layer, one idea for each of its new parts
+      items.push({ label: T('idea_massive'), icon: 'flask', fn: add(() => [S(B('ev_every', { n: 1, u: 'y' }), [B('g_each', { f: 'star' }, [B('c_if', { c: B('q_cmp', { x: B('v_prop', { a: '@each', p: 'ms' }), op: '>', y: 20 }) }, [B('b_become', { b: '@each', k: 'bh' })])])])]) });
+      if (small && par && small !== par) {
+        items.push({ label: T('idea_plot', { a: bodyName(small), b: bodyName(par) }), icon: 'flask', fn: add(() => [S(B('ev_every', { n: 2, u: 'd' }), [B('d_plot', { n: B('v_dist', { a: small.id, b: par.id, u: 'au' }), s: T('idea_plot_s') })])]) });
+        items.push({ label: T('idea_engine', { a: bodyName(small) }), icon: 'flask', fn: add(() => [S(B('ev_button', { s: T('idea_engine_on') }), [B('b_thrust', { b: small.id, n: 0.01, dir: 'fwd' })]), S(B('ev_button', { s: T('idea_engine_off') }), [B('b_thrustoff', { b: small.id })])]) });
+      }
+      items.push({ label: T('idea_law'), icon: 'flask', fn: add(() => [S(B('ev_button', { s: T('idea_law_l') }), [B('w_law', { n: 3, d: 1, u: 'au' }), B('w_msg', { s: T('idea_law_m') })])]) });
+      items.push({ label: T('idea_expand'), icon: 'flask', fn: add(() => [S(B('ev_button', { s: T('idea_expand_l') }), [B('w_expand', { n: 1, u: 'y' }), B('w_msg', { s: T('idea_expand_m') })])]) });
+      items.push({ label: T('idea_count'), icon: 'flask', fn: add(() => [S(B('ev_every', { n: 1, u: 'y' }), [B('var_set', { v: T('idea_count_v'), n: B('g_count', { f: 'planet' }) })])], [T('idea_count_v')]) });
+      if (big) items.push({ label: T('idea_proc', { name: bodyName(big) }), icon: 'flask', fn: () => {
+        let first = null;
+        this.mutate(() => {
+          const p = this.prog(); p.procs = p.procs || [];
+          const id = uid('p'); p.procs.push({ id, name: T('idea_proc_n'), params: [{ t: 'body', n: T('bk_p_defbody') }, { t: 'num', n: T('idea_proc_k') }] });
+          const d = S(B('p_def', { proc: id }), [B('b_mass', { b: '@b0', n: B('p_arg', { proc: id, i: 1 }), u: 'x' }), B('w_msgv', { s: T('idea_proc_m'), n: B('v_prop', { a: '@b0', p: 'm' }) })]);
+          const c = S(B('ev_button', { s: T('idea_proc_l') }), [B('p_call', { proc: id, b0: B('r_pick', { f: 'planet', p: 'm', hl: 'hi' }), n1: 2 })]);
+          p.scripts.push(d, c); first = d.hat.id;
+        });
+        this.renderPalette(); this.reveal(first);
+      } });
+    }
     menuDlg(T('bk_ideas_t'), items);
   },
 
@@ -10883,7 +11765,7 @@ const BlocksUI = {
     root.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch' || e.button !== 0) return;
       const el = this.blockAt(e.target); if (!el) return;
-      this.cand = { el, x0: e.clientX, y0: e.clientY, pal: !!el.closest('.bk-pal'), touch: false, pid: e.pointerId };
+      this.cand = { el, x0: e.clientX, y0: e.clientY, pal: this.isSource(el), touch: false, pid: e.pointerId };
       try { root.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
       e.preventDefault();
     });
@@ -10905,9 +11787,9 @@ const BlocksUI = {
     root.addEventListener('touchstart', (e) => {
       if (e.touches.length !== 1) { this.cancelDrag(); this.clearCand(); return; }
       const el = this.blockAt(e.target); if (!el) { this.clearCand(); return; }
-      const t = e.touches[0], pal = !!el.closest('.bk-pal');
+      const t = e.touches[0], pal = this.isSource(el);
       this.clearCand();
-      const c = this.cand = { el, x0: t.clientX, y0: t.clientY, x: t.clientX, y: t.clientY, pal, touch: true, pull: pal && !this.roomyPalette(), timer: 0 };
+      const c = this.cand = { el, x0: t.clientX, y0: t.clientY, x: t.clientX, y: t.clientY, pal, touch: true, pull: pal && !this.roomyPalette() && !el.classList.contains('bk-chip'), timer: 0 };
       if (!c.pull) c.timer = setTimeout(() => { if (this.cand === c && !this.drag) { this.engage(c.x, c.y); if (this.drag) this.dragMove(c.x, c.y); } }, 170);
     }, { passive: true });
     root.addEventListener('touchmove', (e) => {
@@ -10930,15 +11812,18 @@ const BlocksUI = {
     root.addEventListener('contextmenu', (e) => { if (this.blockAt(e.target)) e.preventDefault(); });
   },
   clearCand() { if (this.cand) clearTimeout(this.cand.timer); this.cand = null; },
+  // where new blocks come from: the palette, and the argument chips on a definition hat
+  isSource(el) { return !!el.closest('.bk-pal') || el.classList.contains('bk-chip'); },
+  ovOf(el) { try { return el.dataset.ov ? JSON.parse(el.dataset.ov) : null; } catch (e) { return null; } },
   tap(c) {
-    if (c.pal) this.addFromPalette(c.el.dataset.op);
+    if (c.pal) this.addFromPalette(c.el.dataset.op, this.ovOf(c.el));
     else this.tapMenu(c.el.dataset.id);
   },
   engage(x, y) {
     const c = this.cand; if (!c || this.drag) return;
     const el = c.el, r = el.getBoundingClientRect();
     let type, els = [el];
-    if (c.pal) { const sh = BLOCKS[el.dataset.op].shape; type = sh === 'hat' ? 'hat' : sh === 'num' || sh === 'bool' ? sh : 'stack'; }
+    if (c.pal) { const sh = BLOCKS[el.dataset.op].shape; type = sh === 'hat' ? 'hat' : sh === 'num' || sh === 'bool' || sh === 'bref' ? sh : 'stack'; }
     else {
       const loc = this.locate(el.dataset.id); if (!loc) return;
       if (loc.kind === 'hat') { type = 'hat'; els = [el.closest('.bk-script')]; }
@@ -10952,7 +11837,7 @@ const BlocksUI = {
     src.forEach((s, i) => { if (dst[i]) dst[i].value = s.value; });
     document.body.append(ghost);
     const first = els[0].getBoundingClientRect();
-    this.drag = { type, els, ghost, pal: c.pal, id: c.pal ? null : el.dataset.id, op: c.pal ? el.dataset.op : null, ox: x - first.left, oy: y - first.top, target: null, x, y, raf: 0, h: r.height };
+    this.drag = { type, els, ghost, pal: c.pal, id: c.pal ? null : el.dataset.id, op: c.pal ? el.dataset.op : null, ov: c.pal ? this.ovOf(el) : null, ox: x - first.left, oy: y - first.top, target: null, x, y, raf: 0, h: r.height };
     if (!c.pal) for (const e2 of els) e2.style.opacity = '0.28';
     const loop = () => { if (!this.drag) return; this.autoScroll(); this.drag.raf = requestAnimationFrame(loop); };
     this.drag.raf = requestAnimationFrame(loop);
@@ -10993,9 +11878,9 @@ const BlocksUI = {
     // only the palette strip is the bin; a drop anywhere else outside the workspace just puts things back
     if (!overWs) { if (!d.pal && d.y > w.bottom && d.x >= w.left && d.x <= w.right) { d.target = { into: 'trash' }; this.pal.classList.add('trash'); } return; }
     const line = (x, y, wd) => { const ln = h('div', { class: 'bk-drop' }); ln.style.left = (x - w.left + this.ws.scrollLeft) + 'px'; ln.style.top = (y - w.top + this.ws.scrollTop - 2) + 'px'; ln.style.width = (wd || 130) + 'px'; this.ws.append(ln); this.dropLine = ln; };
-    if (d.type === 'num' || d.type === 'bool') {
+    if (d.type === 'num' || d.type === 'bool' || d.type === 'bref') {
       let best = null, bd = 34;
-      for (const sl of this.canvas.querySelectorAll('.bk-slot[data-kind="' + d.type + '"]')) {
+      for (const sl of this.canvas.querySelectorAll('.bk-slot[data-kind="' + (d.type === 'bref' ? 'body' : d.type) + '"]')) {
         if (this.inDragged(sl)) continue;
         const r = sl.getBoundingClientRect();
         const dx = Math.max(r.left - d.x, 0, d.x - r.right), dy = Math.max(r.top - d.y, 0, d.y - r.bottom), dist = Math.hypot(dx, dy);
@@ -11068,7 +11953,7 @@ const BlocksUI = {
     Sound.ui(target.into === 'trash' ? 'trash' : 'snap');
     let newId = null;
     this.mutate(() => {
-      const pay = d.pal ? this.payloadFromPalette(d.op) : this.take(d.id);
+      const pay = d.pal ? this.payloadFromPalette(d.op, d.ov) : this.take(d.id);
       if (!pay) return;
       if (target.into === 'trash') return;
       newId = pay.type === 'hat' ? pay.script.hat.id : pay.blocks[0].id;
@@ -11112,12 +11997,187 @@ addStrings({
   bk_delvar: ['刪除這個變數', 'Delete this variable', 'この変数を削除'], bk_delvar_q: ['刪除變數「{name}」？', 'Delete variable “{name}”?', '変数「{name}」を削除しますか？'],
   bk_drag_num: ['把圓形積木拖進白色的數字格', 'Drag round blocks into a white number slot', '丸いブロックは白い数字の枠へ'], bk_drag_bool: ['把六角形積木拖進六角形的空格', 'Drag hexagon blocks into a hexagon slot', '六角形ブロックは六角形の枠へ'],
   bk_true: ['是', 'true', 'はい'], bk_false: ['否', 'false', 'いいえ'],
+  bk_adv: ['進階', 'Advanced', '上級'], bk_adv_tip: ['進階積木：每一類多出更強的積木，另外還有天體群、物理定律、我的積木、量測', 'Advanced blocks: more powerful blocks in every category, plus Groups, Laws, My blocks and Measure', '上級ブロック：各分類に強力なブロック、さらに天体の集まり・物理法則・マイブロック・計測'],
+  bk_adv_on: ['進階積木打開了！每一類的後面多了新積木，還多了「天體群、物理定律、我的積木、量測」四類。它們和基礎積木可以互相塞來塞去。', 'Advanced blocks are on: every category has more at its end, and there are four new ones — Groups, Laws, My blocks, Measure. They snap together with the basic blocks.', '上級ブロックがオンに。各分類の後ろに新しいブロック、さらに4つの分類が増えました。基本ブロックと組み合わせられます。'],
+  bk_each: ['這一個（迴圈）', 'this one (loop)', 'これ（ループ）'], bk_param: ['參數：{name}', 'argument: {name}', '引数：{name}'],
+  bk_chip_tip: ['把這個參數拖進下面的積木', 'Drag this argument into the blocks below', 'この引数を下のブロックへドラッグ'],
+  bk_drag_body: ['把切角的天體積木拖進天體選單的格子', 'Drag cut-corner body blocks into a body slot', '角の欠けた天体ブロックは天体の枠へ'],
+  bk_picklist: ['選清單…', 'choose a list…', 'リストを選ぶ…'], bk_newlist: ['建立清單', 'Make a list', 'リストを作る'],
+  bk_newlist_d: ['清單是一串數字，適合記錄量測結果。內容會顯示在量測圖表裡。', 'A list is a row of numbers, good for recording measurements. It shows in the charts window.', 'リストは数の並びで、計測の記録に便利です。計測グラフに表示されます。'],
+  bk_list_ph: ['例如：距離紀錄', 'e.g. distances', '例：距離の記録'], bk_dellist: ['刪除這個清單', 'Delete this list', 'このリストを削除'], bk_dellist_q: ['刪除清單「{name}」？', 'Delete list “{name}”?', 'リスト「{name}」を削除しますか？'],
+  bk_newproc: ['建立新積木', 'Make a block', 'ブロックを作る'], bk_editproc: ['修改這塊積木', 'Edit this block', 'このブロックを編集'], bk_gotodef: ['看它的定義', 'Go to its definition', '定義を見る'],
+  bk_proc_hint: ['把常用的一串積木包成自己的一塊。', 'Wrap a stack you use often into a block of your own.', 'よく使うブロックの並びを自分のブロックにまとめます。'],
+  bk_proc_d: ['取個名字，決定要交給它哪些數字或天體。建好後，在「定義」下面接上它要做的事。', 'Name it and choose which numbers or bodies it takes. Then snap what it does under its “define” block.', '名前を付け、渡す数や天体を決めます。作ったら「定義」の下に、することをつなげます。'],
+  bk_proc_ph: ['例如：變重', 'e.g. grow', '例：重くする'], bk_p_title: ['名字', 'Name', '名前'], bk_p_args: ['參數（最多 3 個）', 'Arguments (up to 3)', '引数（3つまで）'], bk_p_add: ['加參數', 'Add', '追加'],
+  bk_p_num: ['數字', 'Number', '数'], bk_p_body: ['天體', 'Body', '天体'], bk_p_name: ['參數名稱', 'Argument name', '引数の名前'], bk_p_defnum: ['數量', 'amount', '量'], bk_p_defbody: ['目標', 'target', '対象'],
+  bk_p_make: ['建立', 'Make', '作る'], bk_proc_made: ['在「定義」下面接上積木，就是這塊積木要做的事。它在「我的積木」裡。', 'Snap blocks under “define”: that is what your block does. Find it under My blocks.', '「定義」の下につなげたブロックが、このブロックの動きです。「マイブロック」にあります。'],
+  bk_proc_gone: ['刪掉了「{name}」，用到它的地方也一起拿掉了', '“{name}” is gone, and every use of it too', '「{name}」と、それを使っていた所を消しました'], bk_undo_s: ['復原', 'Undo', '元に戻す'],
+  bkh_6: ['進階開關', 'The Advanced switch', '上級スイッチ'], bkh_6d: ['打開後每一類多出進階積木，還有天體群、物理定律、我的積木、量測四類。切角的天體積木可以塞進任何天體格；兩層積木都能互相接在一起。', 'Turn it on for more blocks in every category and four more categories. Cut-corner body blocks fit any body slot, and both layers snap together.', 'オンにすると各分類にブロックが増え、さらに4分類。角の欠けた天体ブロックはどの天体枠にも入り、2つの層は自由に組み合わせられます。'],
+  idea_massive: ['每年檢查：超過 20 個太陽重的恆星都變成黑洞', 'Every year: any star over 20 suns becomes a black hole', '毎年：太陽20個分より重い恒星はブラックホールに'],
+  idea_plot: ['每 2 天把{a}和{b}的距離畫成曲線', 'Every 2 days, plot the distance {a}–{b}', '2日ごとに {a}–{b} の距離を曲線に'], idea_plot_s: ['距離（au）', 'distance (au)', '距離（au）'],
+  idea_engine: ['兩顆按鈕：{a}的引擎點火／熄火', 'Two buttons: fire / stop the engine of {a}', '2つのボタン：{a} のエンジン点火／停止'], idea_engine_on: ['點火', 'Fire', '点火'], idea_engine_off: ['熄火', 'Stop', '停止'],
+  idea_law: ['一顆按鈕：引力改成 1/距離³', 'A button: gravity becomes 1 / distance³', 'ボタン：重力を 1/距離³ に'], idea_law_l: ['1/r³', '1/r³', '1/r³'], idea_law_m: ['引力定律改了，看看軌道會怎樣', 'Gravity changed: watch the orbits', '重力の法則が変わった。軌道を見てみよう'],
+  idea_expand: ['一顆按鈕：讓空間膨脹', 'A button: make space expand', 'ボタン：空間を膨張させる'], idea_expand_l: ['膨脹', 'Expand', '膨張'], idea_expand_m: ['空間開始膨脹：每年距離變兩倍', 'Space is expanding: distances double every year', '空間が膨張し始めた：毎年距離が2倍'],
+  idea_count: ['用變數顯示行星有幾顆', 'Show the number of planets in a variable', '惑星の数を変数で表示'], idea_count_v: ['行星數', 'planets', '惑星の数'],
+  idea_proc: ['自訂積木「變重」，用按鈕套在最重的行星上', 'A block of your own, “grow”, used on the heaviest planet', 'マイブロック「重くする」を一番重い惑星に'], idea_proc_n: ['變重', 'grow', '重くする'], idea_proc_k: ['倍數', 'times', '倍率'],
+  idea_proc_m: ['質量（地球=1）=', 'mass (Earth = 1) =', '質量（地球=1）='], idea_proc_l: ['變重', 'Grow', '重く'],
   bk_restart: ['已經跑過的「開始時／時間到」不會自己重來。回到起點再跑一次就會套用。', 'Start and timed events that already fired will not replay by themselves. Go back to the start and run again.', '実行済みの「開始時／時刻」イベントは自動では再実行されません。最初に戻して再実行を。'],
   bkh_1: ['黃色的「事件」放最上面', 'An Events block goes on top', '黄色の「イベント」を一番上に'], bkh_1d: ['它決定下面那串什麼時候開始：時間到、兩個天體靠近、碰到、繞滿一圈、你按按鈕…', 'It decides when the stack below starts: a time, two bodies getting close, touching, a full lap, a button you press…', '下のブロックがいつ始まるかを決めます。'],
   bkh_2: ['把動作接在下面', 'Snap actions underneath', '下にアクションをつなぐ'], bkh_2d: ['手機：把下面的積木往上拉出來；工作區裡的積木按住一下再拖。點一下積木可以複製、停用、刪除。', 'Phone: pull a block up out of the strip; hold a block in the workspace for a moment, then drag. Tap a block to duplicate, switch off or delete.', 'スマホ：下の列から引き上げる。作業場のブロックは少し押してからドラッグ。タップで複製・停止・削除。'],
   bkh_3: ['改數字、換天體', 'Change numbers, swap bodies', '数値や天体を変える'], bkh_3d: ['白色的格子可以直接打字；圓形和六角形的積木可以塞進去，變成會自己算的數字或條件。', 'Type straight into white slots; round and hexagon blocks drop in to become live numbers and conditions.', '白い枠には直接入力。丸や六角形のブロックを入れると計算される値や条件になります。'],
   bkh_4: ['不要的拖回下面', 'Drag away what you do not want', 'いらないものは下へ'], bkh_4d: ['拖到最下面那排就刪掉。按右上的箭頭可以復原。', 'Drop it on the bottom strip to delete. The arrow at the top right undoes.', '下の列に落とすと削除。右上の矢印で元に戻せます。'],
   bkh_5: ['平行宇宙時，可以指定在哪邊執行', 'With a parallel universe, choose where a script runs', '並行宇宙では実行する側を選べる'], bkh_5d: ['事件上的小標籤：A＋B、只有 A、只有 B。兩邊唯一的差別，就是你的實驗。', 'The small tag on an Events block: A＋B, A only, B only. The one difference between the two sides is your experiment.', 'イベントの小さなタグ：A＋B／Aのみ／Bのみ。両者の唯一の違いがあなたの実験です。'],
+});
+
+// ---- 67_dataview.js ----
+// ============================================================================
+// Measurements — the curves and lists that "measure" blocks fill, drawn live.
+// One small chart per curve (each with its own scale): a curve over time, or an x–y
+// chart kept to equal scales so an orbit looks like an orbit. With a parallel universe
+// both sides are drawn, B dashed. Points beyond what a chart can show are thinned by
+// the universe itself (26_blocks_adv.js), so drawing stays cheap.
+// ============================================================================
+const DataView = {
+  panels: [], lists: [], _key: '', _drawAt: 0,
+  open() {
+    if (Win.isOpen('data')) { if (Win.isMin('data')) Win.restore('data'); if (Win.isFolded('data')) Win.fold('data', false); Win.raise('data'); Win.render('data'); }
+    else Win.show('data', null, { unfold: true });
+  },
+  // a script drew its first point on a new curve: show the charts (once a session, never over a level)
+  onFx(f) {
+    const s = App.session; if (!s || s.challenge) return;
+    if (f.type === 'dataview') { this.open(); return; }
+    if (Win.isOpen('data')) { Win.render('data'); return; }
+    if (!s._dvShown) { s._dvShown = true; this.open(); }
+  },
+  key() {
+    const s = App.session, us = s.universes();
+    return us.map(u => Object.keys(u.plots).map(k => k + ':' + u.plots[k].k).join(',')).join('|') + '#' + (s.program.lists || []).join(',');
+  },
+  build(head, body) {
+    head.append(Win.header(T('dv_title'), null, [iconBtn('download', T('dv_csv'), () => this.csv()), iconBtn('trash', T('dv_clear'), () => this.clearAll())]));
+    this.body = body; this.render();
+  },
+  render() {
+    const s = App.session, body = this.body; if (!body || !s) return;
+    clear(body); this.panels = []; this.lists = []; this._key = this.key();
+    const names = [];
+    for (const u of s.universes()) for (const k in u.plots) if (names.indexOf(k) < 0) names.push(k);
+    const lists = s.program.lists || [];
+    if (!names.length && !lists.length) {
+      body.append(h('div', { class: 'dv-empty' }, h('b', { text: T('dv_empty') }), h('p', { text: T('dv_empty_d') }),
+        btn(T('dv_toblocks'), () => this.toBlocks(), 'small primary', 'blocks')));
+      return;
+    }
+    if (s.B) body.append(h('div', { class: 'legend dv-leg' }, h('span', null, h('i', { style: { background: COL_A } }), T('dv_a')), h('span', null, h('i', { class: 'dash', style: { background: COL_B } }), T('dv_b'))));
+    for (const n of names) {
+      const kind = (s.A.plots[n] || (s.B && s.B.plots[n]) || {}).k || 't';
+      const val = h('span', { class: 'dv-val' }), cv = h('canvas', { class: 'chart dv-chart' + (kind === 'xy' ? ' xy' : ''), role: 'img', 'aria-label': n });
+      body.append(h('div', { class: 'dv-panel' }, h('div', { class: 'dv-head' }, h('b', { text: n }), h('span', { class: 'dv-kind', text: T(kind === 'xy' ? 'dv_xy' : 'dv_t') }), val), cv));
+      this.panels.push({ name: n, kind, cv, val });
+    }
+    if (lists.length) {
+      const box = h('div', { class: 'dv-lists' }, h('h3', { text: T('dv_lists') }));
+      for (const l of lists) { const len = h('span', { class: 'dv-len' }), tail = h('span', { class: 'dv-tail' }); box.append(h('div', { class: 'dv-list' }, h('b', { text: l }), len, tail)); this.lists.push({ name: l, len, tail }); }
+      body.append(box);
+    }
+    this.draw();
+  },
+  // the editor, on the Measure blocks (switching the advanced layer on if it is off)
+  toBlocks() {
+    BlocksUI.cat = 'data';
+    if (Win.isOpen('blocks') && BlocksUI.cats) { if (!BlocksUI.adv) BlocksUI.setAdv(true); else { BlocksUI.renderCats(); BlocksUI.renderPalette(); } }
+    else Store.setPref('bkAdv', true);
+    Win.show('blocks', null, { unfold: true });
+  },
+  refresh() {
+    if (!this.body || !App.session) return;
+    if (this.key() !== this._key) { this.render(); return; }
+    const now = performance.now();
+    if (now - this._drawAt > 250) this.draw();
+  },
+  draw() {
+    this._drawAt = performance.now();
+    const s = App.session;
+    for (const p of this.panels) {
+      const a = s.A.plots[p.name], b = s.B ? s.B.plots[p.name] : null;
+      this.chart(p.cv, a && a.k === p.kind ? a.pts : null, b && b.k === p.kind ? b.pts : null, p.kind, !!s.B);
+      const last = (q) => q && q.pts.length ? q.pts[q.pts.length - 1] : null, la = last(a), lb = last(b);
+      const fmt = (pt) => p.kind === 'xy' ? '(' + sig(pt[0], 3) + ', ' + sig(pt[1], 3) + ')' : sig(pt[1], 4);
+      const txt = (la ? fmt(la) : '—') + (s.B ? ' · ' + (lb ? fmt(lb) : '—') : '');
+      if (p.val.textContent !== txt) p.val.textContent = txt;
+    }
+    for (const l of this.lists) {
+      const L = s.A.lists[l.name] || [], n = T('dv_items', { n: L.length });
+      if (l.len.textContent !== n) l.len.textContent = n;
+      const tail = L.slice(-6).map(x => sig(x, 4)).join('  ') + (L.length > 6 ? '  …' : '');
+      if (l.tail.textContent !== tail) l.tail.textContent = tail;
+    }
+  },
+  // one chart: time on x (or the x of an x–y curve, at the same scale as y); its own range, zero line when it is in view
+  chart(cv, A, B, kind, two) {
+    if (!cv || !cv.clientWidth) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2), W = cv.clientWidth, H = cv.clientHeight;
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+    c.font = '11px ' + App.uiFont(); c.fillStyle = '#8d9ba7';
+    const sets = [[A, two ? COL_A : '#e9d6ae', false], [B, COL_B, true]].filter(x => x[0] && x[0].length);
+    if (!sets.length || sets.every(x => x[0].length < 2)) { c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(T('dv_wait'), W / 2, H / 2); return; }
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (const [pts] of sets) for (const p of pts) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
+    const padL = 8, padR = 8, padT = 16, padB = 16, w = W - padL - padR, hh = H - padT - padB;
+    if (!(y1 > y0)) { const m = Math.abs(y0) || 1; y0 -= 0.5 * m; y1 += 0.5 * m; }
+    if (!(x1 > x0)) { const m = Math.abs(x0) || 1; x0 -= 0.5 * m; x1 += 0.5 * m; }
+    let sx = w / (x1 - x0), sy = hh / (y1 - y0), ox = padL, oy = padT;
+    if (kind === 'xy') {          // equal scales, centred
+      const k = Math.min(sx, sy); ox += (w - k * (x1 - x0)) / 2; oy += (hh - k * (y1 - y0)) / 2; sx = sy = k;
+    } else { const pad = (y1 - y0) * 0.06; y0 -= pad; y1 += pad; sy = hh / (y1 - y0); }
+    const X = (x) => ox + (x - x0) * sx, Y = (y) => oy + (y1 - y) * sy;
+    c.strokeStyle = 'rgba(196,216,230,.14)'; c.lineWidth = 1; c.beginPath();
+    if (y0 < 0 && y1 > 0) { c.moveTo(padL, Math.round(Y(0)) + 0.5); c.lineTo(W - padR, Math.round(Y(0)) + 0.5); }
+    if (kind === 'xy' && x0 < 0 && x1 > 0) { c.moveTo(Math.round(X(0)) + 0.5, padT); c.lineTo(Math.round(X(0)) + 0.5, H - padB); }
+    c.stroke();
+    for (const [pts, col, dash] of sets) {
+      c.strokeStyle = col; c.lineWidth = 1.6; c.setLineDash(dash ? [5, 4] : []); c.beginPath();
+      pts.forEach((p, i) => { const x = X(p[0]), y = Y(p[1]); if (i) c.lineTo(x, y); else c.moveTo(x, y); });
+      c.stroke(); c.setLineDash([]);
+      const q = pts[pts.length - 1]; c.fillStyle = col; c.beginPath(); c.arc(X(q[0]), Y(q[1]), 2.6, 0, TAU); c.fill();
+    }
+    // as many digits as it takes for the two ends of an axis to read differently
+    const digits = (lo, hi) => { let p = 3; while (p < 9 && sig(lo, p) === sig(hi, p)) p++; return p; };
+    const py = digits(y0, y1), px = digits(x0, x1);
+    c.fillStyle = '#8d9ba7'; c.textAlign = 'left'; c.textBaseline = 'top'; c.fillText(sig(y1, py), padL, 2);
+    c.textBaseline = 'bottom'; c.fillText(sig(y0, py), padL, H - 1);
+    c.textAlign = 'right';
+    c.fillText(kind === 'xy' ? 'x ' + sig(x0, px) + ' … ' + sig(x1, px) : fmtTime(x1), W - padR, H - 1);
+  },
+  clearAll() {
+    const s = App.session; for (const u of s.universes()) { u.plots = {}; for (const k in u.lists) u.lists[k] = []; }
+    s.touch(); this.render(); Toast.show(T('dv_cleared'), { key: 'dvc' });
+  },
+  csv() {
+    const s = App.session, rows = ['curve,universe,kind,time_days,x,y'];
+    for (const u of s.universes()) {
+      const tag = s.tagOf(u);
+      for (const k in u.plots) { const p = u.plots[k], name = '"' + k.replace(/"/g, '""') + '"'; for (const q of p.pts) rows.push(p.k === 'xy' ? [name, tag, 'xy', q[2] / DAY, q[0], q[1]].join(',') : [name, tag, 't', q[0] / DAY, q[0] / DAY, q[1]].join(',')); }
+      for (const k in u.lists) { const name = '"' + k.replace(/"/g, '""') + '"'; u.lists[k].forEach((x, i) => rows.push([name, tag, 'list', '', i + 1, x].join(','))); }
+    }
+    exportText(safeFileName(s.name) + '-measurements.csv', rows.join('\n'), 'text/csv');
+  },
+};
+Win.register('data', {
+  icon: 'chart', tool: true, min: [250, 200],
+  geom: (a, k) => k === 'p' ? { w: Math.min(a.W - 12, 420), h: Math.min(Math.round((a.y1 - a.y0) * 0.36), 360), at: 'tc' } : k === 'l' ? { w: Math.max(270, Math.min(360, a.W - 400)), h: a.y1 - a.y0 - 12, at: 'tl' } : { w: 400, h: Math.min(a.y1 - a.y0 - 16, 440), at: 'tl' },
+  build: (hd, bd) => DataView.build(hd, bd), refresh: () => DataView.refresh(), onClose: () => { DataView.body = null; DataView.panels = []; }, onResize: () => DataView.draw(),
+});
+addStrings({
+  dv_title: ['量測圖表', 'Measurements', '計測グラフ'], dv_open: ['量測圖表', 'Charts', '計測グラフ'], dv_csv: ['匯出數據（CSV）', 'Export data (CSV)', 'データを書き出す（CSV）'],
+  dv_clear: ['清除所有曲線和清單', 'Clear every curve and list', 'すべての曲線とリストを消す'], dv_cleared: ['曲線和清單都清空了', 'Curves and lists cleared', '曲線とリストを消しました'],
+  dv_empty: ['還沒有量測資料', 'Nothing measured yet', 'まだ計測データがありません'],
+  dv_empty_d: ['在進階積木的「量測」裡，用「把…畫進曲線」記錄任何數字，就會在這裡畫出來。', 'Use “plot … on curve” in the advanced Measure blocks to record any number; it is drawn here.', '上級ブロックの「計測」にある「…を曲線に描く」で数を記録すると、ここに描かれます。'],
+  dv_toblocks: ['去量測積木', 'Go to the Measure blocks', '計測ブロックへ'], dv_wait: ['等待更多資料點…', 'Waiting for more points…', 'データ点を待っています…'],
+  dv_t: ['隨時間', 'over time', '時間ごと'], dv_xy: ['x–y 圖', 'x–y chart', 'x–y グラフ'], dv_a: ['宇宙 A', 'Universe A', '宇宙 A'], dv_b: ['宇宙 B', 'Universe B', '宇宙 B'],
+  dv_lists: ['清單', 'Lists', 'リスト'], dv_items: ['{n} 項', '{n} items', '{n} 項目'],
 });
 
 // ---- 68_parallel.js ----
@@ -11445,12 +12505,16 @@ const More = {
       const a = uu.bodies[uu.limA], b = uu.bodies[uu.limB]; dlim.textContent = a && b ? bodyName(a) + ' ↔ ' + bodyName(b) : '—';
       const now = performance.now(); if (now - (this._eAt || 0) < 700) return; this._eAt = now;
       if (uu.bodies.length > 120) { dE.textContent = '—'; return; }
+      if (uu.expT > 0 || uu.dragT > 0 || uu.bodies.some(x => x.th)) { dE.textContent = T('p_e_open'); return; }      // expansion, drag and engines add or take energy on purpose
       const E = uu.energy().E; if (e0 === null || e0rev !== uu.rev) { e0 = E; e0rev = uu.rev; }
       dE.textContent = e0 !== 0 && isNum(E) ? sig((E - e0) / Math.abs(e0) * 100, 2) + ' %' : '—';
     });
     body.append(h('div', { class: 'sec' }, h('h3', { text: T('sec_physics') }),
       fieldRow(T('p_gravity'), switchEl(u.gravityOn, (v) => { App.edit('gravity', (uu) => { uu.gravityOn = v; }); }, T('p_gravity'))),
       fieldRow(T('p_gscale'), [gInp, h('span', { class: 'note', text: T('p_times') })]),
+      // laws a script rewrote: what they are now, and the way back
+      u.isNewtonian() ? null : h('div', { class: 'engine' }, icon('flask'), h('div', null, h('b', { text: T('law_title') }), h('span', { text: HUD.lawText(u) })),
+        btn(T('p_law_reset'), () => { App.edit('laws', (uu) => { uu.lawN = 2; uu.lawR0 = AU; uu.expT = 0; uu.dragT = 0; for (const x of uu.bodies) x.th = null; }); HUD.syncVars(true); Win.render('more'); }, 'small')),
       fieldRow(T('p_precision'), segEl([['fast', T('p_fast')], ['std', T('p_std')], ['fine', T('p_fine')]], Object.keys(ETA_PRESETS).find(k => ETA_PRESETS[k] === u.eta) || 'std', (v) => { for (const uu of s.universes()) { uu.eta = ETA_PRESETS[v]; uu.dirty(); } s.touch(); })),
       // what a collision does, and whether tides can pull bodies apart (per universe, like gravity)
       fieldRow(T('p_collide'), segEl(COLLIDE_MODES.map(k => [k, T('p_col_' + k)]), u.collide, (v) => { App.edit('collide', (uu) => uu.setCollide(v)); Win.render('more'); })),
@@ -11496,6 +12560,9 @@ Win.register('more', {
   build: (hd, bd) => More.build(hd, bd), refresh: () => More.refresh(),
 });
 
+addStrings({
+  p_e_open: ['不守恆（自訂物理）', 'not conserved (own physics)', '保存されない（独自の物理）'], p_law_reset: ['回到真實物理', 'Back to real physics', '現実の物理に戻す'],
+});
 addStrings({
   more_title: ['更多', 'More', 'その他'], sec_display: ['畫面', 'Display', '表示'], sec_physics: ['物理', 'Physics', '物理'], sec_time: ['時間', 'Time', '時間'], sec_tools: ['工具', 'Tools', 'ツール'], sec_file: ['檔案', 'File', 'ファイル'], lang: ['語言', 'Language', '言語'],
   d_trails: ['軌跡', 'Trails', '軌跡'], d_off: ['關', 'Off', 'オフ'], d_short: ['短', 'Short', '短'], d_mid: ['中', 'Medium', '中'], d_long: ['長', 'Long', '長'],
@@ -11754,7 +12821,7 @@ addStrings({
   hp_edit: ['改', 'Change', '変える'], hp_edit_d: ['選取天體後可以改質量、速度、種類，也能釘住、移動、從它身上發射東西。每一步都能復原。', 'With a body selected, change its mass, speed or kind; pin it, move it, launch things from it. Every step can be undone.', '天体を選ぶと質量・速さ・種類を変更、固定、移動、発射ができます。すべて元に戻せます。'],
   hp_time: ['時間', 'Time', '時間'], hp_time_d: ['金色的圓鈕是開始和暫停。點它旁邊的速度，可以決定每秒過多久。↺ 可以把時間倒回去，從過去重新來。', 'The brass dial starts and pauses. Tap the speed beside it to set how much time passes per second. ↺ scrubs back so you can replay from the past.', '金色の丸ボタンで開始・停止。となりの速度をタップして1秒に進む時間を決めます。↺で過去に戻ってやり直せます。'],
   hp_hit: ['相撞', 'Collisions', '衝突'], hp_hit_d: ['天體碰到就會照物理相撞：合併、噴出碎片，或雙雙粉碎；太靠近大天體還會被潮汐撕碎（洛希極限）。想換規則，到「更多 → 物理」。', 'Bodies that touch collide for real: they merge, throw off fragments or shatter. Too close to a big one, and tides pull them apart (the Roche limit). To change the rule, go to More → Physics.', '天体は触れると本当に衝突します：合体、破片の飛散、あるいは粉砕。大きな天体に近づきすぎると潮汐で引き裂かれます（ロッシュ限界）。ルールは「その他 → 物理」で変えられます。'],
-  hp_blocks: ['積木', 'Blocks', 'ブロック'], hp_blocks_d: ['用積木寫下規則：什麼時候，發生什麼。例如「當月球與地球的距離小於 2 萬公里 → 把時間放慢、顯示訊息」。', 'Write rules with blocks: when something happens, do something. For example “when the Moon gets closer than 20,000 km to Earth → slow time down and show a message”.', 'ブロックでルールを書く：いつ、何が起こるか。例「月と地球の距離が2万kmより近くなったら → 時間を遅くしてメッセージを表示」。'],
+  hp_blocks: ['積木', 'Blocks', 'ブロック'], hp_blocks_d: ['用積木寫下規則：什麼時候，發生什麼。例如「當月球與地球的距離小於 2 萬公里 → 把時間放慢、顯示訊息」。打開積木視窗下方的「進階」還有更多：一次對所有恆星下規則、自訂物理定律（1/r³ 引力、空間膨脹、引擎）、自己做積木、即時曲線圖。', 'Write rules with blocks: when something happens, do something. For example “when the Moon gets closer than 20,000 km to Earth → slow time down and show a message”. Switch on Advanced at the bottom of the editor for more: rules for every star at once, your own laws of physics (gravity as 1/r³, expanding space, engines), blocks of your own, and live charts.', 'ブロックでルールを書く：いつ、何が起こるか。例「月と地球の距離が2万kmより近くなったら → 時間を遅くしてメッセージを表示」。エディター下の「上級」をオンにすると、すべての恒星に一度にルールを書いたり、独自の物理法則（1/r³ の重力、空間の膨張、エンジン）、マイブロック、リアルタイムのグラフが使えます。'],
   hp_par: ['平行宇宙', 'Parallel universe', '並行宇宙'], hp_par_d: ['分出一模一樣的宇宙 B，只改其中一邊，兩邊同時跑，看差在哪。另一個宇宙可以並排看，也可以變成能拖的小視窗。', 'Split off an identical universe B, change one side only, run both and see what differs. Watch the other one side by side, or as a small view you can drag around.', 'そっくりな宇宙Bを分け、片方だけ変えて同時に動かし、違いを見る。もう一方は並べても、ドラッグできる小窓にしても見られます。'],
   hp_win: ['視窗', 'Windows', 'ウィンドウ'], hp_win_d: ['每個面板都是視窗：抓著最上面那一條拖到任何地方；拉左右兩邊、下緣或下面兩個角改大小（手機上也可以兩指在標題列上捏開捏合）。⌄ 收成一條，– 縮到畫面左邊的小格子（點一下就回來），⤢ 全螢幕，✕ 關掉。', 'Every panel is a window: hold its bar to drag it anywhere; pull either side, the bottom edge or a bottom corner to resize it (on a phone you can also pinch on its bar). ⌄ folds it down to the bar, – sends it to the dock on the left (tap it there to bring it back), ⤢ fills the screen, ✕ closes it.', 'パネルはすべてウィンドウです。上のバーをつかんで好きな所へ。左右の端・下の端・下の角を引いてサイズ変更（スマホではバーをピンチしても）。⌄ でバーだけにたたみ、– で画面左のドックへ（タップで戻る）、⤢ で全画面、✕ で閉じる。'],
   hp_keys: ['鍵盤：空白鍵 開始／暫停，[ ] 調時間速度，F 飛到選取的天體，H 看全部，Ctrl＋Z 復原，Delete 移除，Esc 離開目前的模式或關掉最上面的視窗。', 'Keyboard: Space play/pause, [ ] time speed, F fly to selection, H see everything, Ctrl+Z undo, Delete remove, Esc leave the current mode or close the front window.', 'キーボード：Space 再生/停止、[ ] 速度、F 選択へ、H 全体、Ctrl+Z 元に戻す、Delete 除去、Esc モード終了／手前のウィンドウを閉じる。'],
@@ -11770,7 +12837,7 @@ addStrings({
     document.body.append(h('div', { id: 'fatal' }, h('div', null, h('h2', { text: T('fatal') }), h('p', { class: 'note', text: String(e && e.message || e).slice(0, 300) }))));
   };
   const go = () => {
-    if (/[#&]debug\b/.test(location.hash)) { window.__gl = { App, HUD, Win, Pop, Toast, Store, Title, Home, BlocksUI, Rewind, Parallel, Interp, CATALOG, M3, V, bodyRotation, spinAngle, makeBody, Sound, ChallengeUI, ChallengeRun, CHALLENGES, CHALLENGE_ORDER, chDir, ProbeCam, CraftAtt, Inspector }; if (/still/.test(location.hash)) Title._init = true, Title.paused = true; }
+    if (/[#&]debug\b/.test(location.hash)) { window.__gl = { App, HUD, Win, Pop, Toast, Store, Title, Home, BlocksUI, Rewind, Parallel, Interp, CATALOG, M3, V, bodyRotation, spinAngle, makeBody, Sound, ChallengeUI, ChallengeRun, CHALLENGES, CHALLENGE_ORDER, chDir, ProbeCam, CraftAtt, Inspector, DataView, BLOCKS, BLOCK_PALETTE_ADV, newBlock, newScript, procOf }; if (/still/.test(location.hash)) Title._init = true, Title.paused = true; }
     try { App.boot(); } catch (e) { if (window.console) console.error(e); fatal(e); }
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
